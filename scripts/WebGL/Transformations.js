@@ -1,7 +1,7 @@
 // Librairie sur les transformations
 
-    // Pour créer des transformations.
-    // Au point de départ, le transformations sont neutres.
+    // Pour crÃ©er des transformations.
+    // Au point de dÃ©part, le transformations sont neutres.
     function creerTransformations() {
       var tabTransformations = [0, 0, 0, 0, 0, 0, 1, 1, 1];
       return tabTransformations;
@@ -49,22 +49,22 @@
     return tabTransformations[5];
  }
 
-  // Pour aller chercher les mises à l'échelle XYZ
+  // Pour aller chercher les mises Ã  l'Ã©chelle XYZ
   function getEchellesXYZ(tabTransformations) {
     return tabTransformations.slice(6,9);
  }
 
- // Pour aller chercher la mise à l'échelle en X
+ // Pour aller chercher la mise Ã  l'Ã©chelle en X
  function getEchelleX(tabTransformations) {
     return tabTransformations[6];
   }
 
- // Pour aller chercher la mise à l'échelle en Y
+ // Pour aller chercher la mise Ã  l'Ã©chelle en Y
  function getEchelleY(tabTransformations) {
     return tabTransformations[7];
   }
 
- // Pour aller chercher la mise à l'échelle en Z
+ // Pour aller chercher la mise Ã  l'Ã©chelle en Z
  function getEchelleZ(tabTransformations) {
     return tabTransformations[8];
 }
@@ -111,22 +111,22 @@
       tabTransformations[5] = fltAngleZ;
   }
 
-  // Pour modifier les mises à l'échelle XYZ
+  // Pour modifier les mises Ã  l'Ã©chelle XYZ
   function setEchellesXYZ(tabEchellesXYZ, tabTransformations) {
       tabTransformations.splice(6, 3, tabEchellesXYZ[0], tabEchellesXYZ[1], tabEchellesXYZ[2]);
   }
 
-  // Pour modifier la mise à l'échelle en X
+  // Pour modifier la mise Ã  l'Ã©chelle en X
   function setEchelleX(fltEchelleX, tabTransformations) {
       tabTransformations[6] = fltEchelleX;
   }
 
-  // Pour modifier la mise à l'échelle en Y
+  // Pour modifier la mise Ã  l'Ã©chelle en Y
   function setEchelleY(fltEchelleY, tabTransformations) {
       tabTransformations[7] = fltEchelleY;
   }
 
-  // Pour modifier la mise à l'échelle en Z
+  // Pour modifier la mise Ã  l'Ã©chelle en Z
   function setEchelleZ(fltEchelleZ, tabTransformations) {
       tabTransformations[8] = fltEchelleZ;
   }

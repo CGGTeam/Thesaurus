@@ -50,7 +50,7 @@
 	function initShaders(objgl) {
 		var objProgShaders = null;
 
-		// Créer les shaders à partir du code source
+		// Créer les shaders à partir du scripts source
         var objFragmentShader = creerShader(objgl, strFragmentShaderSource, 'fragment');
         var objVertexShader = creerShader(objgl, strVertexShaderSource, 'vertex');
 		
