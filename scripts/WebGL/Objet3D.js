@@ -1,4 +1,4 @@
-class Objet3D{
+class Objet3D extends Dessinable{
   /**
    *
    * @param scene
@@ -10,6 +10,7 @@ class Objet3D{
    * @param couleurs
    */
   constructor(scene, vertex, typeDessin, maillage, texels, transformation, couleurs=[]) {
+    super();
     this.scene = scene;
     this.vertex = vertex;
     this.typeDessin = typeDessin;
@@ -69,9 +70,5 @@ class Objet3D{
     scene.objgl.drawElements(scene.objgl.TRIANGLES, this.maillage.nbTriangles * 3, scene.objgl.UNSIGNED_SHORT, 0);
     // Dessiner les droites à la suite des triangles
     scene.objgl.drawElements(scene.objgl.LINES, this.maillage.nbDroites * 2, scene.objgl.UNSIGNED_SHORT, this.maillage.nbTriangles * 2 * 3);
-  }
-
-  mettreAJourAnimation() {
-
   }
 }

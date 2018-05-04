@@ -1,15 +1,18 @@
 
 class Scene {
+  /**
+   *
+   * @param {{Dessinable}} tabDessinables
+   */
   constructor() {
+    this.tabDessinables = [];
     this.objCanvas = document.getElementById('cvThesaurus');
     this.objgl = initWebGL(this.objCanvas);
     this.objProgShaders = initShaders(this.objgl);
     this.intCycleAnimation = null;
-    this.objNiveau = null;
     this.camera = null;
     this.initScene3D();
     this.dessiner();
-    this.animer();
   }
 
   animer() {
@@ -36,8 +39,6 @@ class Scene {
     setPositionsCameraXYZ([0, 0, 3], this.camera);
     setCiblesCameraXYZ([0, 0, 0], this.camera);
     setOrientationsXYZ([0, 1, 0], this.camera);
-
-    this.objNiveau = new Niveau();
   }
 
   dessiner() {
@@ -52,16 +53,20 @@ class Scene {
     // Relier la matrice aux shaders
     this.objgl.uniformMatrix4fv(this.objProgShaders.matProjection, false, matProjection);
 
-    this.objNiveau.dessiner();
+    this.tabDessinables.forEach(o => o.dessiner());
   }
 
   mettreAJourAnimation() {
-    this.objNiveau.mettreAJourAnimation();
+    this.tabDessinables.forEach(o => o.mettreAJourAnimation());
   }
 
   static getInstance() {
     if (!Scene.instance)
       Scene.instance = new Scene();
     return Scene.instance;
+  }
+
+  addDessinable(obj) {
+    this.tabDessinables.push(obj);
   }
 }
