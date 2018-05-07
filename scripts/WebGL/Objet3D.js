@@ -1,19 +1,20 @@
+/**
+ * @classdesc Classe générale qui sert à créer un objet 3D en WebGL. Non-abstraite mais faite dans le but d'être étendue.
+ */
 class Objet3D extends Dessinable{
   /**
-   *
-   * @param scene
-   * @param vertex
-   * @param typeDessin
-   * @param maillage
-   * @param {TexelColl} texels
-   * @param transformation
-   * @param couleurs
+   * Créé un Objet3D
+   * @param {Scene} scene Objet Scene. Il ne devrait avoir qu'une scène par Canvas
+   * @param {Array<number>} vertex - tableau de vertex (chaque vertex équivaut à 3 valeurs float dans le tableau (x,y,z))
+   * @param {Maillage} maillage - Objet Maillage de la forme 3D
+   * @param {TexelColl} texels - Objet TexelColl de la forme 3D
+   * @param {Array<number>} couleurs - Tableau de couleurs en RGBA. La longueur devrait être = vertex.length / 3 * 4
+   * (4 valeurs par vertex)
    */
-  constructor(scene, vertex, typeDessin, maillage, texels, transformation, couleurs=[]) {
+  constructor(scene, vertex, maillage, texels, transformation, couleurs=[]) {
     super();
     this.scene = scene;
     this.vertex = vertex;
-    this.typeDessin = typeDessin;
     this.maillage = maillage;
     this.couleurs = couleurs;
     this.texels = texels;

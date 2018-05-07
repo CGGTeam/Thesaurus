@@ -1,11 +1,10 @@
-
+/**
+ * @classdesc Singleton qui contient l'instance de objgl et d'autres propriétés reliées
+ */
 class Scene {
-  /**
-   *
-   * @param {{Dessinable}} tabDessinables
-   */
   constructor() {
     this.tabDessinables = [];
+    this.tabTextures = [];
     this.objCanvas = document.getElementById('cvThesaurus');
     this.objgl = initWebGL(this.objCanvas);
     this.objProgShaders = initShaders(this.objgl);
@@ -68,5 +67,13 @@ class Scene {
 
   addDessinable(obj) {
     this.tabDessinables.push(obj);
+  }
+
+  /**
+   * Prend un tableau de textures et les load dans WebGL
+   * @param {Array<string>} nomsTex tableau des noms/chemins des images de texture.
+   */
+  creerTextures(nomsTex) {
+    creerTextures(this.objgl, nomsTex);
   }
 }
