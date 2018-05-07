@@ -7,12 +7,12 @@ function creerTextures(objgl, tabImages, callback, thisarg) {
       // L'image de la texture
       let objImage = new Image();
       objImage.crossOrigin = "";
-      objImage.onload = () => textureChargee(objgl, objImage,tabImages.length, callback, thisarg, tabObjTextures);
+      objImage.onload = () => textureChargee(objgl, objImage,tabImages.length, callback, thisarg, tabObjTextures, i);
       objImage.src = adresseServeur + tabImages[i];
     }
 }
 
-function textureChargee(objgl, objImage, valeurVisee, callback, thisarg, tabTextures) {
+function textureChargee(objgl, objImage, valeurVisee, callback, thisarg, tabTextures, index) {
     // Créer La texture
     let objTexture = objgl.createTexture();
 
@@ -31,7 +31,7 @@ function textureChargee(objgl, objImage, valeurVisee, callback, thisarg, tabText
     objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_WRAP_T, objgl.REPEAT);
 
     // Insérer cette texture dans un tableau de textures
-    tabTextures.push(objTexture);
+    tabTextures[index] = objTexture;
 
     compteurTexturesChargees++;
     if (compteurTexturesChargees >= valeurVisee)
