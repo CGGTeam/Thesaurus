@@ -20,7 +20,19 @@ class MurImbrisable extends Objet3D{
       -0.5, 0.0, 0.5, //4: Coin Bas Gauche
       0.5, 0.0, 0.5, //5: Coin Bas Droit
       -0.5, 2.0, 0.5, //6: Coin Haut Gauche
-      0.5, 2.0, 0.5 //7: Coin Haut Droit
+      0.5, 2.0, 0.5, //7: Coin Haut Droit
+
+      //Face gauche
+      -0.5, 0.0, 0.5, //8: Coin Bas Gauche
+      -0.5, 0.0,-0.5, //9: Coin Bas Droit
+      -0.5, 2.0, 0.5, //10: Coin Haut Droit
+      -0.5, 2.0,-0.5, //11: Coin Haut Gauche
+
+      //Face droite
+      0.5, 0.0, 0.5, //12: Coin Bas Gauche
+      0.5, 0.0,-0.5, //13: Coin Bas Droit
+      0.5, 2.0, 0.5, //14: Coin Haut Droit
+      0.5, 2.0,-0.5, //15: Coin Haut Gauche
     ]);
 
     let maillage = new Maillage(new Uint16Array([
@@ -37,11 +49,11 @@ class MurImbrisable extends Objet3D{
       2, 3, 6,
       6, 7, 3,
       //Face Gauche
-      0, 2, 4,
-      4, 6, 0,
+      8, 9, 10,
+      9, 10, 11,
       //Face Droite
-      1, 3, 5,
-      5, 7, 1
+      12, 13, 14,
+      13, 14, 15
     ]), 0, 12);
 
     let texels = new TexelColl(new Float32Array([
@@ -55,8 +67,20 @@ class MurImbrisable extends Objet3D{
       0.0, 2.0, //4: Coin Bas Gauche
       1.0, 2.0, //5: Coin Bas Droit
       0.0, 0.0, //6: Coin Haut Gauche
-      1.0, 0.0  //7: Coin Haut Droit
-    ]), 1.0, 1.0);
+      1.0, 0.0,  //7: Coin Haut Droit
+
+      //Face gauche
+      0.0, 2.0, //8: Coin Bas Gauche
+      1.0, 2.0, //9: Coin Bas Droit
+      0.0, 0.0, //10: Coin Haut Gauche
+      1.0, 0.0, //11: Coin Haut Droit
+
+      //Face droite
+      0.0, 2.0, //12: Coin Bas Gauche
+      1.0, 2.0, //13: Coin Bas Droit
+      0.0, 0.0, //14: Coin Haut Gauche
+      1.0, 0.0  //15: Coin Haut Droit
+    ]), 2, 1.0);
 
     let transform = creerTransformations();
     setPositionsXYZ([x, 0, y], transform);

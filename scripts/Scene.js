@@ -36,9 +36,9 @@ class Scene {
     // setPositionsCameraXYZ([0, 100, 0], this.camera);
     // setCiblesCameraXYZ([0, 1, 0], this.camera);
     // setOrientationsXYZ([0, 0, 1], this.camera);
-    setPositionsCameraXYZ([0, 1, 3], this.camera);
+    setPositionsCameraXYZ([-3, 1, 0], this.camera);
     setCiblesCameraXYZ([0, 1, 0], this.camera);
-    setOrientationsXYZ([0, 0, 1], this.camera);
+    setOrientationsXYZ([0, 1, 0], this.camera);
 
   }
 
