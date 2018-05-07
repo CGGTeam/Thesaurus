@@ -33,9 +33,13 @@ class Scene {
   initScene3D() {
     // La caméra
     this.camera = creerCamera();
+    // setPositionsCameraXYZ([0, 100, 0], this.camera);
+    // setCiblesCameraXYZ([0, 1, 0], this.camera);
+    // setOrientationsXYZ([0, 0, 1], this.camera);
     setPositionsCameraXYZ([0, 1, 3], this.camera);
     setCiblesCameraXYZ([0, 1, 0], this.camera);
-    setOrientationsXYZ([0, 1, 0], this.camera);
+    setOrientationsXYZ([0, 0, 1], this.camera);
+
   }
 
   dessiner() {
@@ -48,7 +52,7 @@ class Scene {
     // Matrice de projection
     let matProjection = mat4.create();
     let fltRapportCanevas = objgl.drawingBufferWidth / objgl.drawingBufferHeight;
-    mat4.perspective(45, fltRapportCanevas, 0.01, 100, matProjection);
+    mat4.perspective(45, fltRapportCanevas, 0.01, 150, matProjection);
 
     // Relier la matrice aux shaders
     objgl.uniformMatrix4fv(objProgShaders.matProjection, false, matProjection);
