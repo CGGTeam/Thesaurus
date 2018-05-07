@@ -33,7 +33,7 @@ class Scene {
   initScene3D() {
     // La caméra
     this.camera = creerCamera();
-    setPositionsCameraXYZ([0, 0, 3], this.camera);
+    setPositionsCameraXYZ([0, 1, 3], this.camera);
     setCiblesCameraXYZ([0, 1, 0], this.camera);
     setOrientationsXYZ([0, 1, 0], this.camera);
   }

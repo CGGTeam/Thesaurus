@@ -46,14 +46,14 @@ class Mur extends Objet3D{
 
     let texels = new TexelColl(new Float32Array([
       //Face arrière
-       0.0, 1.0, //0: Coin Bas Gauche
-       1.0, 1.0, //1: Coin Bas Droit
+       0.0, 2.0, //0: Coin Bas Gauche
+       1.0, 2.0, //1: Coin Bas Droit
        0.0, 0.0, //2: Coin Haut Gauche
        1.0, 0.0, //3: Coin Haut Droit
 
       //Face avant
-       0.0, 1.0, //4: Coin Bas Gauche
-       1.0, 1.0, //5: Coin Bas Droit
+       0.0, 2.0, //4: Coin Bas Gauche
+       1.0, 2.0, //5: Coin Bas Droit
        0.0, 0.0, //6: Coin Haut Gauche
        1.0, 0.0  //7: Coin Haut Droit
     ]), 0.0, 1.0);
