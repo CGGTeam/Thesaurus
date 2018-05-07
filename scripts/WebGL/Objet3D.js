@@ -5,34 +5,44 @@ class Objet3D extends Dessinable{
   /**
    * Créé un Objet3D
    * @param {Scene} scene Objet Scene. Il ne devrait avoir qu'une scène par Canvas
-   * @param {Array<number>} vertex - tableau de vertex (chaque vertex équivaut à 3 valeurs float dans le tableau (x,y,z))
+   * @param {Float32Array} vertex - tableau de vertex (chaque vertex équivaut à 3 valeurs float dans le tableau (x,y,z))
    * @param {Maillage} maillage - Objet Maillage de la forme 3D
    * @param {TexelColl} texels - Objet TexelColl de la forme 3D
-   * @param {Array<number>} couleurs - Tableau de couleurs en RGBA. La longueur devrait être = vertex.length / 3 * 4
+   * @param {Float32Array} couleurs - Tableau de couleurs en RGBA. La longueur devrait être = vertex.length / 3 * 4
    * (4 valeurs par vertex)
    */
-  constructor(scene, vertex, maillage, texels, transformation, couleurs=[]) {
+  constructor(vertex, maillage, texels, transformation, couleurs=[], scene = Scene.getInstance()) {
     super();
+
     this.scene = scene;
-    this.vertex = vertex;
-    this.maillage = maillage;
-    this.couleurs = couleurs;
-    this.texels = texels;
+    let objgl = scene.objgl;
+    console.log(maillage.maillage.length);
+
+    this.vertex = objgl.createBuffer();
+    objgl.bindBuffer(objgl.ARRAY_BUFFER, this.vertex);
+    objgl.bufferData(objgl.ARRAY_BUFFER, vertex, objgl.STATIC_DRAW); //TODO: donner option de changer
+
+    this.couleurs = objgl.createBuffer();
+    objgl.bindBuffer(objgl.ARRAY_BUFFER, this.couleurs);
+    objgl.bufferData(objgl.ARRAY_BUFFER, couleurs, objgl.STATIC_DRAW); //TODO: donner option de changer
+
+    this.maillage = objgl.createBuffer();
+    objgl.bindBuffer(objgl.ELEMENT_ARRAY_BUFFER, this.maillage);
+    objgl.bufferData(objgl.ELEMENT_ARRAY_BUFFER, maillage.maillage, objgl.STATIC_DRAW); //TODO: donner option de changer
+    this.maillage.nbTriangles = maillage.nbTriangles;
+    this.maillage.nbDroites = maillage.nbDroites;
+
+    this.texels = objgl.createBuffer();
+    objgl.bindBuffer(objgl.ARRAY_BUFFER, this.texels);
+    objgl.bufferData(objgl.ARRAY_BUFFER, texels.texel, objgl.STATIC_DRAW); //TODO: donner option de changer
+    this.texels.noTex = texels.noTex;
+    this.texels.pcCouleur = texels.pcCouleur;
+
     this.transformations = transformation;
   }
 
-  dessiner() {
+  dessiner(matModeleVue) {
     let scene = this.scene;
-
-    // Matrice du modèle
-    let matModeleVue = mat4.create();
-    mat4.identity(matModeleVue);
-
-    // Placer la caméra sur la scène
-    mat4.lookAt(getPositionsCameraXYZ(scene.camera),
-      getCiblesCameraXYZ(scene.camera),
-      getOrientationsXYZ(scene.camera),
-      matModeleVue);
 
     // Appliquer les transformations sur le modèle
     mat4.translate(matModeleVue, getPositionsXYZ(this.transformations));

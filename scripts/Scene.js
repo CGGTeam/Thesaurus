@@ -4,14 +4,12 @@
 class Scene {
   constructor() {
     this.tabDessinables = [];
-    this.tabTextures = [];
     this.objCanvas = document.getElementById('cvThesaurus');
     this.objgl = initWebGL(this.objCanvas);
     this.objProgShaders = initShaders(this.objgl);
     this.intCycleAnimation = null;
     this.camera = null;
-    this.initScene3D();
-    this.dessiner();
+    this.tabTextures = null;
   }
 
   animer() {
@@ -36,23 +34,36 @@ class Scene {
     // La caméra
     this.camera = creerCamera();
     setPositionsCameraXYZ([0, 0, 3], this.camera);
-    setCiblesCameraXYZ([0, 0, 0], this.camera);
+    setCiblesCameraXYZ([0, 1, 0], this.camera);
     setOrientationsXYZ([0, 1, 0], this.camera);
   }
 
   dessiner() {
+    let objgl = this.objgl;
+    let objProgShaders = this.objProgShaders;
+
     // La vue
-    this.objgl.viewport(0, 0, this.objgl.drawingBufferWidth, this.objgl.drawingBufferHeight);
+    objgl.viewport(0, 0, objgl.drawingBufferWidth, objgl.drawingBufferHeight);
 
     // Matrice de projection
     let matProjection = mat4.create();
-    let fltRapportCanevas = this.objgl.drawingBufferWidth / this.objgl.drawingBufferHeight;
+    let fltRapportCanevas = objgl.drawingBufferWidth / objgl.drawingBufferHeight;
     mat4.perspective(45, fltRapportCanevas, 0.01, 100, matProjection);
 
     // Relier la matrice aux shaders
-    this.objgl.uniformMatrix4fv(this.objProgShaders.matProjection, false, matProjection);
+    objgl.uniformMatrix4fv(objProgShaders.matProjection, false, matProjection);
 
-    this.tabDessinables.forEach(o => o.dessiner());
+    // Matrice du modèle
+    let matModeleVue = mat4.create();
+    mat4.identity(matModeleVue);
+
+    // Placer la caméra sur la scène
+    mat4.lookAt(getPositionsCameraXYZ(this.camera),
+      getCiblesCameraXYZ(this.camera),
+      getOrientationsXYZ(this.camera),
+      matModeleVue);
+
+    this.tabDessinables.forEach(o => o.dessiner(matModeleVue));
   }
 
   mettreAJourAnimation() {
@@ -74,6 +85,11 @@ class Scene {
    * @param {Array<string>} nomsTex tableau des noms/chemins des images de texture.
    */
   creerTextures(nomsTex) {
-    creerTextures(this.objgl, nomsTex);
+    creerTextures(this.objgl, nomsTex, this.poursuivre, this);
+  }
+
+  poursuivre(tabTextures) {
+    this.tabTextures = tabTextures;
+    poursuivre(this.tabTextures);
   }
 }
