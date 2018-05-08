@@ -9,7 +9,12 @@ class PlancherTresor extends Objet3D{
    * @param y position y  dans la grille de jeu
    */
   constructor (x, y) {
-    let vertex = vertexPlat;
+    let vertex = new Float32Array([
+      0.0, 0.01, 0.0, //0: Coin Bas Gauche
+      3.0, 0.01, 0.0, //1: Coin Bas Droit
+      0.0, 0.01, 3.0, //2: Coin Bas Gauche
+      3.0, 0.01, 3.0//3: Coin Bas Droit
+    ]);
 
     let maillage = new Maillage(maillagePlat, 0, 2);
 
