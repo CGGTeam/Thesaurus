@@ -30,6 +30,7 @@ class Niveau extends Dessinable{
         this.grille[i][j] = new fctFactory();
       }
     }
+    Scene.getInstance().addDessinable(new Plafond(0,0));
     poursuivre2();
   }
 

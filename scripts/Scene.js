@@ -15,7 +15,7 @@ class Scene {
   animer() {
     // Un cycle d'animation
     // Requête pour le prochain cycle
-    // this.intCycleAnimation = requestAnimationFrame(() => this.animer());
+    this.intCycleAnimation = requestAnimationFrame(() => this.animer());
 
     // Le cycle d'animation
     this.effacerCanevas();
@@ -36,9 +36,9 @@ class Scene {
     // setPositionsCameraXYZ([0, 100, 0], this.camera);
     // setCiblesCameraXYZ([0, 1, 0], this.camera);
     // setOrientationsXYZ([0, 0, 1], this.camera);
-    setPositionsCameraXYZ([16, 50, 16], this.camera);
-    setCiblesCameraXYZ([16, 0, 16], this.camera);
-    setOrientationsXYZ([0, 0, -1], this.camera);
+    setPositionsCameraXYZ([0, 1, 3], this.camera);
+    setCiblesCameraXYZ([0, 1, 0], this.camera);
+    setOrientationsXYZ([0, 1, 0], this.camera);
   }
 
   dessiner() {

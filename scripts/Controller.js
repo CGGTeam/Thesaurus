@@ -21,10 +21,12 @@ document.addEventListener("keydown", function(event) {
     //fleche en haut
     else if(event.keyCode == 38){
         binMoveFoward = true;
+        event.preventDefault();
     }
     //fleche en bas
     else if(event.keyCode == 40){
         binMoveBackward = true;
+        event.preventDefault();
     }
 })
 /**
