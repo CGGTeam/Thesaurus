@@ -15,7 +15,7 @@ class Scene {
   animer() {
     // Un cycle d'animation
     // Requête pour le prochain cycle
-    this.intCycleAnimation = requestAnimationFrame(() => this.animer);
+    this.intCycleAnimation = requestAnimationFrame(() => this.animer());
 
     // Le cycle d'animation
     this.effacerCanevas();
@@ -72,6 +72,7 @@ class Scene {
 
   mettreAJourAnimation() {
     this.tabDessinables.forEach(o => o.mettreAJourAnimation());
+    moveCamera(this.camera);
   }
 
   static getInstance() {
