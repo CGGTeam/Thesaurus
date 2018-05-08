@@ -15,7 +15,7 @@ class Scene {
   animer() {
     // Un cycle d'animation
     // Requête pour le prochain cycle
-    this.intCycleAnimation = requestAnimationFrame(() => this.animer());
+    // this.intCycleAnimation = requestAnimationFrame(() => this.animer());
 
     // Le cycle d'animation
     this.effacerCanevas();
@@ -36,10 +36,9 @@ class Scene {
     // setPositionsCameraXYZ([0, 100, 0], this.camera);
     // setCiblesCameraXYZ([0, 1, 0], this.camera);
     // setOrientationsXYZ([0, 0, 1], this.camera);
-    setPositionsCameraXYZ([-3, 1, 0], this.camera);
-    setCiblesCameraXYZ([0, 1, 0], this.camera);
-    setOrientationsXYZ([0, 1, 0], this.camera);
-
+    setPositionsCameraXYZ([16, 50, 16], this.camera);
+    setCiblesCameraXYZ([16, 0, 16], this.camera);
+    setOrientationsXYZ([0, 0, -1], this.camera);
   }
 
   dessiner() {
@@ -57,17 +56,7 @@ class Scene {
     // Relier la matrice aux shaders
     objgl.uniformMatrix4fv(objProgShaders.matProjection, false, matProjection);
 
-    // Matrice du modèle
-    let matModeleVue = mat4.create();
-    mat4.identity(matModeleVue);
-
-    // Placer la caméra sur la scène
-    mat4.lookAt(getPositionsCameraXYZ(this.camera),
-      getCiblesCameraXYZ(this.camera),
-      getOrientationsXYZ(this.camera),
-      matModeleVue);
-
-    this.tabDessinables.forEach(o => o.dessiner(matModeleVue));
+    this.tabDessinables.forEach(o => o.dessiner());
   }
 
   mettreAJourAnimation() {

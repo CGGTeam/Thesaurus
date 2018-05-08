@@ -8,6 +8,7 @@ class Objet3D extends Dessinable{
    * @param {Float32Array} vertex - tableau de vertex (chaque vertex équivaut à 3 valeurs float dans le tableau (x,y,z))
    * @param {Maillage} maillage - Objet Maillage de la forme 3D
    * @param {TexelColl} texels - Objet TexelColl de la forme 3D
+   * @param {Array<number>} transformation - Les transformations présentes sur l'objet
    * @param {Float32Array} couleurs - Tableau de couleurs en RGBA. La longueur devrait être = vertex.length / 3 * 4
    * (4 valeurs par vertex)
    */
@@ -16,7 +17,6 @@ class Objet3D extends Dessinable{
 
     this.scene = scene;
     let objgl = scene.objgl;
-    console.log(maillage.maillage.length);
 
     this.vertex = objgl.createBuffer();
     objgl.bindBuffer(objgl.ARRAY_BUFFER, this.vertex);
@@ -41,8 +41,18 @@ class Objet3D extends Dessinable{
     this.transformations = transformation;
   }
 
-  dessiner(matModeleVue) {
+  dessiner() {
     let scene = this.scene;
+
+    // Matrice du modèle
+    let matModeleVue = mat4.create();
+    mat4.identity(matModeleVue);
+
+    // Placer la caméra sur la scène
+    mat4.lookAt(getPositionsCameraXYZ(scene.camera),
+      getCiblesCameraXYZ(scene.camera),
+      getOrientationsXYZ(scene.camera),
+      matModeleVue);
 
     // Appliquer les transformations sur le modèle
     mat4.translate(matModeleVue, getPositionsXYZ(this.transformations));

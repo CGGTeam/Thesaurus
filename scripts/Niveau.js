@@ -1,5 +1,39 @@
+const tabCodeGrille = Object.freeze(
+  [
+    Plancher.prototype.constructor,
+    Mur.prototype.constructor,
+    MurImbrisable.prototype.constructor,
+    PlancherTresor.prototype.constructor
+  ]
+);
 class Niveau extends Dessinable{
-  constructor () {
+  constructor (nomFichierGrille) {
     super();
+    this.grille = [];
+    this.chargerGrille(nomFichierGrille);
+  }
+
+  chargerGrille(nomFichierGrille) {
+    fetch('https://cggteam.github.io/Thesaurus/' + nomFichierGrille)
+      .then(response => response.text()
+        .then(contenuFichier => this.traiterGrille(contenuFichier))).catch(e => console.log(e));
+  }
+
+  traiterGrille(contenu) {
+    let tabContenu = contenu.split(/[\n\r]/);
+    for (let i = 0; i < tabContenu.length; i++) {
+      this.grille.push([]);
+      for (let j = 0; j < tabContenu[i].length; j++) {
+        let valeur = parseInt(tabContenu[i].charAt(j));
+        let objCtor = tabCodeGrille[valeur];
+        let fctFactory = objCtor.bind(objCtor, j, i);
+        this.grille[i][j] = new fctFactory();
+      }
+    }
+    poursuivre2();
+  }
+
+  dessiner(matModeleVue) {
+    this.grille.forEach(r => r.forEach(c => c.dessiner(matModeleVue)));
   }
 }
