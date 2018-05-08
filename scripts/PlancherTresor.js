@@ -11,10 +11,10 @@ class PlancherTresor extends Objet3D{
   constructor (x, y) {
     console.log('Plancher Trésor');
     let vertex = new Float32Array([
-      0.0, 0.1, 0.0, //0: Coin Bas Gauche
-      3.0, 0.1, 0.0, //1: Coin Bas Droit
-      0.0, 0.1, 3.0, //2: Coin Bas Gauche
-      3.0, 0.1, 3.0//3: Coin Bas Droit
+      0.0, 0.0001, 0.0, //0: Coin Bas Gauche
+      3.0, 0.0001, 0.0, //1: Coin Bas Droit
+      0.0, 0.0001, 3.0, //2: Coin Bas Gauche
+      3.0, 0.0001, 3.0//3: Coin Bas Droit
     ]);
 
     let maillage = new Maillage(maillagePlat, 0, 2);
