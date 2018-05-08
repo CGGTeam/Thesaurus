@@ -73,17 +73,4 @@ class Scene {
   addDessinable(obj) {
     this.tabDessinables.push(obj);
   }
-
-  /**
-   * Prend un tableau de textures et les load dans WebGL
-   * @param {Array<string>} nomsTex tableau des noms/chemins des images de texture.
-   */
-  creerTextures(nomsTex) {
-    creerTextures(this.objgl, nomsTex, this.poursuivre, this);
-  }
-
-  poursuivre(tabTextures) {
-    this.tabTextures = tabTextures;
-    poursuivre(this.tabTextures);
-  }
 }

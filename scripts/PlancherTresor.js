@@ -9,7 +9,6 @@ class PlancherTresor extends Objet3D{
    * @param y position y  dans la grille de jeu
    */
   constructor (x, y) {
-    console.log('Plancher Trésor');
     let vertex = new Float32Array([
       0.0, 0.0001, 0.0, //0: Coin Bas Gauche
       3.0, 0.0001, 0.0, //1: Coin Bas Droit
