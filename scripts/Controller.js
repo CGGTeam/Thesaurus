@@ -76,7 +76,7 @@ function updatePosCamera(camera){
 function rotateCamera(camera,intDirection){
     let fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
     let fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
-    let fltAngle = intDirection * Math.PI / 180; // Tourner 1 degrés
+    let fltAngle = intDirection * Math.PI / 90; // Tourner 2 degrés
     let fltXPrime = fltX * Math.cos(fltAngle) - fltZ * Math.sin(fltAngle);
     let fltZPrime = fltX * Math.sin(fltAngle) + fltZ * Math.cos(fltAngle);
     setCibleCameraX(getPositionCameraX(camera) + fltXPrime, camera);
