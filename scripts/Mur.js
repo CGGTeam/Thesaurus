@@ -11,28 +11,28 @@ class Mur extends Objet3D{
   constructor (x, y) {
     let vertex = new Float32Array([
       //Face arrière
-      -0.5, 0.0,-0.5, //0: Coin Bas Gauche
-       0.5, 0.0,-0.5, //1: Coin Bas Droit
-      -0.5, 2.0,-0.5, //2: Coin Haut Gauche
-       0.5, 2.0,-0.5, //3: Coin Haut Droit
+      0.0, 0.0, 0.0, //0: Coin Bas Gauche
+      1.0, 0.0, 0.0, //1: Coin Bas Droit
+      0.0, 2.0, 0.0, //2: Coin Haut Gauche
+      1.0, 2.0, 0.0, //3: Coin Haut Droit
 
       //Face avant
-      -0.5, 0.0, 0.5, //4: Coin Bas Gauche
-       0.5, 0.0, 0.5, //5: Coin Bas Droit
-      -0.5, 2.0, 0.5, //6: Coin Haut Gauche
-       0.5, 2.0, 0.5, //7: Coin Haut Droit
+      0.0, 0.0, 1.0, //4: Coin Bas Gauche
+      1.0, 0.0, 1.0, //5: Coin Bas Droit
+      0.0, 2.0, 1.0, //6: Coin Haut Gauche
+      1.0, 2.0, 1.0, //7: Coin Haut Droit
 
       //Face gauche
-      -0.5, 0.0, 0.5, //8: Coin Bas Gauche
-      -0.5, 0.0,-0.5, //9: Coin Bas Droit
-      -0.5, 2.0, 0.5, //10: Coin Haut Droit
-      -0.5, 2.0,-0.5, //11: Coin Haut Gauche
+      0.0, 0.0, 1.0, //8: Coin Bas Gauche
+      0.0, 0.0, 0.0, //9: Coin Bas Droit
+      0.0, 2.0, 1.0, //10: Coin Haut Droit
+      0.0, 2.0, 0.0, //11: Coin Haut Gauche
 
       //Face droite
-       0.5, 0.0, 0.5, //12: Coin Bas Gauche
-       0.5, 0.0,-0.5, //13: Coin Bas Droit
-       0.5, 2.0, 0.5, //14: Coin Haut Droit
-       0.5, 2.0,-0.5, //15: Coin Haut Gauche
+      1.0, 0.0, 1.0, //12: Coin Bas Gauche
+      1.0, 0.0, 0.0, //13: Coin Bas Droit
+      1.0, 2.0, 1.0, //14: Coin Haut Droit
+      1.0, 2.0, 0.0, //15: Coin Haut Gauche
     ]);
 
     let maillage = new Maillage(new Uint16Array([
