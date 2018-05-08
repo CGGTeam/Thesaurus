@@ -72,7 +72,7 @@ class Scene {
 
   mettreAJourAnimation() {
     this.tabDessinables.forEach(o => o.mettreAJourAnimation());
-    moveCamera(this.camera);
+      updatePosCamera(this.camera);
   }
 
   static getInstance() {
