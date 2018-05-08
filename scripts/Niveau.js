@@ -25,12 +25,16 @@ class Niveau extends Dessinable{
       this.grille.push([]);
       for (let j = 0; j < tabContenu[i].length; j++) {
         let valeur = parseInt(tabContenu[i].charAt(j));
-        let objCtor = tabCodeGrille[valeur];
-        let fctFactory = objCtor.bind(objCtor, j, i);
-        this.grille[i][j] = new fctFactory();
+        if (valeur != 0 && valeur != 3) {
+          let objCtor = tabCodeGrille[valeur];
+          let fctFactory = objCtor.bind(objCtor, j, i);
+          this.grille[i][j] = new fctFactory();
+        }
       }
     }
     Scene.getInstance().addDessinable(new Plafond(0,0));
+    Scene.getInstance().addDessinable(new Plancher(0,0));
+    Scene.getInstance().addDessinable(new PlancherTresor(14,14));
     poursuivre2();
   }
 

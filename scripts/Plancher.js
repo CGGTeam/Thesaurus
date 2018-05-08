@@ -10,12 +10,7 @@ const maillagePlat = new Uint16Array([
   1, 2, 3,
 ]);
 
-const texelsPlat = new Float32Array([
-  0.0, 1.0, //0: Coin Bas Gauche
-  1.0, 1.0, //1: Coin Bas Droit
-  0.0, 0.0, //2: Coin Haut Gauche
-  1.0, 0.0, //3: Coin Haut Droit
-]);
+const texelsPlat = new Float32Array();
 class Plancher extends Objet3D{
   /**
    * Créer un bloc de mur imbrisable à la position (x, y) indiquée. Noter que la position y dénote la position y en 2D
@@ -33,7 +28,12 @@ class Plancher extends Objet3D{
 
     let maillage = new Maillage(maillagePlat, 0, 2);
 
-    let texels = new TexelColl(texelsPlat, 4, 1.0);
+    let texels = new TexelColl(new Float32Array([
+      0.0, 32.0, //0: Coin Bas Gauche
+      32.0, 32.0, //1: Coin Bas Droit
+      0.0, 0.0, //2: Coin Haut Gauche
+      32.0, 0.0, //3: Coin Haut Droit
+    ]), 4, 1.0);
 
     let transform = creerTransformations();
     setPositionsXYZ([x, 0, y], transform);
