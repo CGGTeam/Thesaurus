@@ -53,29 +53,28 @@ document.addEventListener("keyup", function(event) {
 
 /**
  * Cette fonction est appellé par le requestAnimation frame et permet le déplacment du character
- * @param camera
  */
-function updatePosCamera(camera){
+function updatePosCamera(){
     if(binMoveRight){
-        rotateCamera(camera,1);
+        rotateCamera(1);
     }
     if(binMoveLeft){
-        rotateCamera(camera,-1);
+        rotateCamera(-1);
     }
     if(binMoveFoward){
-        moveCamera(camera,1);
+        moveCamera(1);
     }
     if(binMoveBackward){
-        moveCamera(camera,-1);
+        moveCamera(-1);
     }
 }
 
 /**
  * Rotate la camera de facon circulaire
- * @param camera
  * @param intDirection
  */
-function rotateCamera(camera,intDirection){
+function rotateCamera(intDirection){
+    camera = Scene.getInstance().camera;
     let fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
     let fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
     let fltAngle = intDirection * Math.PI / 90; // Tourner 2 degrés
@@ -87,10 +86,10 @@ function rotateCamera(camera,intDirection){
 
 /**
  * Déplace la caméra de facon horizontal
- * @param camera
  * @param intDirection
  */
-function moveCamera(camera,intDirection){
+function moveCamera(intDirection){
+    camera = Scene.getInstance().camera;
     let fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
     let fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
     let fltRayon = Math.sqrt(fltX * fltX + fltZ * fltZ);
