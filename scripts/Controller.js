@@ -1,11 +1,21 @@
 /**
  * Controller pour la gestion des mouvements
+ * A noter que ixi les X, Y, Z représente les axes dans un plan 3D
  */
 var binMoveLeft = false;
 var binMoveRight = false;
 var binMoveFoward = false;
 var binMoveBackward = false;
 
+/**
+ * Si la page est out of focus, mettre tout a false
+ */
+window.onblur = function(){  
+    binMoveLeft = false;
+    binMoveRight = false;
+    binMoveFoward = false;
+    binMoveBackward = false;
+  }  
 /**
  * gestion des KEYDOWN
  */
@@ -52,7 +62,7 @@ document.addEventListener("keyup", function(event) {
 })
 
 /**
- * Cette fonction est appellé par le requestAnimation frame et permet le déplacment du character
+ * Cette fonction est appellé par le requestAnimationFrame et permet le déplacment du character
  */
 function updatePosCamera(){
     if(binMoveRight){
@@ -100,9 +110,37 @@ function moveCamera(intDirection){
     let fltXCamera = getPositionX(camera) + fltXPrime;
     let fltZCamera = getPositionZ(camera) + fltZPrime;
 
-    // Déplacer la caméra
-    setCibleCameraX(getCibleCameraX(camera) + fltXPrime, camera);
-    setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
-    setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
-    setPositionCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
+    if(checkCollision(fltXCamera,fltZCamera)){
+        // Déplacer la caméra
+        setCibleCameraX(getCibleCameraX(camera) + fltXPrime, camera);
+        setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
+        setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
+        setPositionCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
+    }
+}
+
+/**
+ * 
+ * @param {float} fltX 
+ * @param {float} fltZ 
+ */
+function checkCollision(fltX,fltZ){
+    binAucuneCollision = true;
+    grille = Scene.getInstance().tabDessinables[0].grille;
+
+    intX = Math.floor((fltX));
+    intZ = Math.floor((fltZ));
+    try{
+        if(grille[intZ][intX].constructor.name){
+            binAucuneCollision = false;
+        }
+    }
+    /**
+     * si grille[intZ][intX].constructor.name retourne une erreur c'est qu'il n'y a aucun objet a intZ et intX
+     * et donc c'est vide
+    */
+    catch(e){
+        binAucuneCollision=true;
+    }
+    return binAucuneCollision;
 }
