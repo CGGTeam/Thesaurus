@@ -16,7 +16,7 @@ class PlancherTresor extends Objet3D{
       3.0, 0.0001, 3.0//3: Coin Bas Droit
     ]);
 
-    let maillage = new Maillage(maillagePlat, 0, 2);
+    let maillage = new Maillage(maillagePlancher, 0, 2);
 
     let texels = new TexelColl(new Float32Array([
       0.0, 0.0,

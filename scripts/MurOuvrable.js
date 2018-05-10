@@ -26,17 +26,17 @@ const vertexMur = new Float32Array([
 
 const maillageMur = new Uint16Array([
   //Face Avant
-  0, 1, 2,
+  2, 1, 0,
   1, 2, 3,
   //Face Arrière
   4, 5, 6,
-  5, 6, 7,
+  7, 6, 5,
   //Face Gauche
-  8, 9, 10,
+  10, 9, 8,
   9, 10, 11,
   //Face Droite
   12, 13, 14,
-  13, 14, 15
+  15, 14, 13
 ]);
 
 const texelsMur = new Float32Array([
@@ -103,8 +103,6 @@ class MurOuvrable extends Objet3D{
 
     let transform = creerTransformations();
     setPositionsXYZ([x, 0, y], transform);
-
-    let couleur = [];
 
     super(vertex, maillage, texels, transform, couleursMurs);
   }

@@ -1,3 +1,7 @@
+const maillagePlafond = new Uint16Array([
+  0, 1, 2,
+  1, 3, 2,
+]);
 /**
  * @classdesc Objet qui représente une case de plafond
  */
@@ -16,7 +20,7 @@ class Plafond extends Objet3D{
       32.0, 2.0, 32.0, //3: Coin Bas Droit
     ]);
 
-    let maillage = new Maillage(maillagePlat, 0, 2);
+    let maillage = new Maillage(maillagePlafond, 0, 2);
 
     let texels = new TexelColl(new Float32Array([
       0.0, 32.0, //0: Coin Bas Gauche
