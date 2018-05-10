@@ -28,6 +28,6 @@ class PlancherTresor extends Objet3D{
     let transform = creerTransformations();
     setPositionsXYZ([x, 0, y], transform);
 
-    super(vertex, maillage, texels, transform);
+    super(vertex, maillage, texels, transform, couleursPlat);
   }
 }

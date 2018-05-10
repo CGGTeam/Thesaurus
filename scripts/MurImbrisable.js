@@ -11,13 +11,13 @@ class MurImbrisable extends Objet3D{
   constructor (x, y) {
     let vertex = vertexMur;
 
-    let maillage = new Maillage(maillageMur, 0, 12);
+    let maillage = new Maillage(maillageMur, 0, 8);
 
     let texels = new TexelColl(texelsMur, 2, 1.0);
 
     let transform = creerTransformations();
     setPositionsXYZ([x, 0, y], transform);
 
-    super(vertex, maillage, texels, transform);
+    super(vertex, maillage, texels, transform, couleursMurs);
   }
 }

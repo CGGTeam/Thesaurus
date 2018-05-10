@@ -1,7 +1,7 @@
 const tabCodeGrille = Object.freeze(
   [
     Plancher.prototype.constructor,
-    Mur.prototype.constructor,
+    MurOuvrable.prototype.constructor,
     MurImbrisable.prototype.constructor,
     PlancherTresor.prototype.constructor
   ]
@@ -39,6 +39,9 @@ class Niveau extends Dessinable{
   }
 
   dessiner(matModeleVue) {
-    this.grille.forEach(r => r.forEach(c => c.dessiner(matModeleVue)));
+    this.grille.forEach(r => r.forEach(c => {
+      if (c)
+        c.dessiner(matModeleVue)
+    }));
   }
 }

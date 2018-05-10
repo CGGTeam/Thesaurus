@@ -12,7 +12,7 @@ class Objet3D extends Dessinable{
    * @param {Float32Array} couleurs - Tableau de couleurs en RGBA. La longueur devrait être = vertex.length / 3 * 4
    * (4 valeurs par vertex)
    */
-  constructor(vertex, maillage, texels, transformation, couleurs=[], scene = Scene.getInstance()) {
+  constructor(vertex, maillage, texels, transformation, couleurs, scene = Scene.getInstance()) {
     super();
 
     this.scene = scene;
@@ -24,7 +24,7 @@ class Objet3D extends Dessinable{
 
     this.couleurs = objgl.createBuffer();
     objgl.bindBuffer(objgl.ARRAY_BUFFER, this.couleurs);
-    objgl.bufferData(objgl.ARRAY_BUFFER, couleurs, objgl.STATIC_DRAW); //TODO: donner option de changer
+    objgl.bufferData(objgl.ARRAY_BUFFER, new Float32Array(couleurs), objgl.STATIC_DRAW); //TODO: donner option de changer
 
     this.maillage = objgl.createBuffer();
     objgl.bindBuffer(objgl.ELEMENT_ARRAY_BUFFER, this.maillage);
@@ -70,7 +70,7 @@ class Objet3D extends Dessinable{
 
     // Relier les couleurs aux shaders
     scene.objgl.bindBuffer(scene.objgl.ARRAY_BUFFER, this.couleurs);
-    scene.objgl.vertexAttribPointer(scene.objProgShaders.couleurVertex, 4, scene.objgl.FLOAT, false, 0, 0)
+    scene.objgl.vertexAttribPointer(scene.objProgShaders.couleurVertex, 4, scene.objgl.FLOAT, false, 0, 0);
 
     // Activer la texture
     scene.objgl.activeTexture(scene.objgl.TEXTURE0 + this.texels.noTex);
@@ -89,7 +89,5 @@ class Objet3D extends Dessinable{
 
     // Dessiner les triangles
     scene.objgl.drawElements(scene.objgl.TRIANGLES, this.maillage.nbTriangles * 3, scene.objgl.UNSIGNED_SHORT, 0);
-    // Dessiner les droites à la suite des triangles
-    scene.objgl.drawElements(scene.objgl.LINES, this.maillage.nbDroites * 2, scene.objgl.UNSIGNED_SHORT, this.maillage.nbTriangles * 2 * 3);
   }
 }
