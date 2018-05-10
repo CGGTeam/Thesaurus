@@ -9,6 +9,10 @@ var binMoveBackward = false;
 var binClosed = false;
 var fltVitesse = 0.045; //0.045;
 
+var binAerien = false;
+var anciennePosition = [];
+var ancienneRotation = [];
+var ancienneOrientation = [];
 /**
  * Si la page est out of focus, mettre tout a false
  */
@@ -23,49 +27,56 @@ window.onblur = function(){
  */
 document.addEventListener("keydown", function(event) {
     //fleche gauche
-    if (event.keyCode == 37){
+    if (!binAerien) {
+      if (event.keyCode === 37){
         binMoveLeft = true;
-    }
-    //fleche droite
-    else if(event.keyCode == 39){
+      }
+      //fleche droite
+      else if(event.keyCode === 39){
         binMoveRight = true;
-    }
-    //fleche en haut
-    else if(event.keyCode == 38){
+      }
+      //fleche en haut
+      else if(event.keyCode === 38){
         binMoveFoward = true;
         event.preventDefault();
-    }
-    //fleche en bas
-    else if(event.keyCode == 40){
+      }
+      //fleche en bas
+      else if(event.keyCode === 40){
         binMoveBackward = true;
         event.preventDefault();
-    }
-    //space (ouvrir un mur)
-    else if(event.keyCode == 32){
+      }
+      else if(event.keyCode == 32){
         ouvrirMur();
+      }
     }
-})
+    if (event.keyCode == 33) {
+      binAerien = !binAerien;
+      toggleVueAerienne(binAerien);
+    }
+});
 /**
  * Gestion des KEYUP
  */
 document.addEventListener("keyup", function(event) {
-    //fleche gauche
-    if (event.keyCode == 37){
+    if (!binAerien) {
+      //fleche gauche
+      if (event.keyCode === 37){
         binMoveLeft = false;
-    }
-    //fleche droite
-    else if(event.keyCode == 39){
+      }
+      //fleche droite
+      else if(event.keyCode === 39){
         binMoveRight = false;
-    }
-    //fleche en haut
-    else if(event.keyCode == 38){
+      }
+      //fleche en haut
+      else if(event.keyCode === 38){
         binMoveFoward = false;
-    }
-    //fleche en bas
-    else if(event.keyCode == 40){
+      }
+      //fleche en bas
+      else if(event.keyCode === 40){
         binMoveBackward = false;
+      }
     }
-})
+});
 
 /**
  * Cette fonction est appellé par le requestAnimationFrame et permet le déplacment du character
@@ -193,7 +204,7 @@ function checkCollision(fltX,fltZ){
 }
 /**
  * Regarde si la camera est à l'extérieur de l'enclos et la ferme si elle l'est
- * @param {float} fltZ 
+ * @param {float} fltZ
  */
 function checkExterieurEnclos(fltZ){
     if(fltZ<=12.5){
@@ -217,7 +228,7 @@ function ouvrirMur(){
     //la position de la camera
     var intXCamera = Math.floor(getPositionX(camera));
     var intZCamera = Math.floor(getPositionZ(camera));
-    
+
     //nord
     if(fltZ<=-1 && fltX>=-1 && fltX<=1){
         intZCamera=intZCamera-1;
@@ -261,4 +272,21 @@ function ouvrirMur(){
 
     //enlever l'objet dans la grille
     Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera] = null;
+}
+
+function toggleVueAerienne(binAerien){
+  let camera = Scene.getInstance().camera;
+  if (binAerien) {
+    anciennePosition = getPositionsCameraXYZ(camera);
+    ancienneRotation = getAnglesXYZ(camera);
+    ancienneOrientation = getOrientationsXYZ(camera);
+
+    setPositionsXYZ([15.50, 40, 15.50],camera);
+    setAnglesXYZ([15.50, 0, 15.50], camera);
+    setOrientationsXYZ([0, 0, -1], camera);
+  } else {
+    setPositionsXYZ(anciennePosition,camera);
+    setAnglesXYZ(ancienneRotation, camera);
+    setOrientationsXYZ(ancienneOrientation, camera);
+  }
 }

@@ -15,18 +15,18 @@ class Plafond extends Objet3D{
   constructor (x, y) {
     let vertex = new Float32Array([
        0.0, 2.0,  0.0, //0: Coin Bas Gauche
-      32.0, 2.0,  0.0, //1: Coin Bas Droit
-       0.0, 2.0, 32.0, //2: Coin Bas Gauche
-      32.0, 2.0, 32.0, //3: Coin Bas Droit
+      31.0, 2.0,  0.0, //1: Coin Bas Droit
+       0.0, 2.0, 31.0, //2: Coin Bas Gauche
+      31.0, 2.0, 31.0, //3: Coin Bas Droit
     ]);
 
     let maillage = new Maillage(maillagePlafond, 0, 2);
 
     let texels = new TexelColl(new Float32Array([
-      0.0, 32.0, //0: Coin Bas Gauche
-      32.0, 32.0, //1: Coin Bas Droit
+      0.0, 31.0, //0: Coin Bas Gauche
+      31.0, 31.0, //1: Coin Bas Droit
       0.0, 0.0, //2: Coin Haut Gauche
-      32.0, 0.0, //3: Coin Haut Droit
+      31.0, 0.0, //3: Coin Haut Droit
     ]), 3, 1.0);
 
     let transform = creerTransformations();

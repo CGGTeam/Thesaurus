@@ -22,6 +22,12 @@ const vertexMur = new Float32Array([
   1.0, 0.0, 0.0, //13: Coin Bas Droit
   1.0, 2.0, 1.0, //14: Coin Haut Droit
   1.0, 2.0, 0.0, //15: Coin Haut Gauche
+
+  //Face haute
+  0.0, 2.0, 0.0, //16: Coin Loin Gauche
+  1.0, 2.0, 0.0, //17: Coin Loin Droit
+  0.0, 2.0, 1.0, //18: Coin Proche Gauche
+  1.0, 2.0, 1.0  //19: Coin Proche Droit
 ]);
 
 const maillageMur = new Uint16Array([
@@ -36,7 +42,10 @@ const maillageMur = new Uint16Array([
   9, 10, 11,
   //Face Droite
   12, 13, 14,
-  15, 14, 13
+  15, 14, 13,
+  //Face Haute
+  18, 17, 16,
+  17, 18, 19
 ]);
 
 const texelsMur = new Float32Array([
@@ -62,10 +71,20 @@ const texelsMur = new Float32Array([
   0.0, 2.0, //12: Coin Bas Gauche
   1.0, 2.0, //13: Coin Bas Droit
   0.0, 0.0, //14: Coin Haut Gauche
+  1.0, 0.0, //15: Coin Haut Droit
+
+  //Face haute
+  0.0, 2.0, //12: Coin Bas Gauche
+  1.0, 2.0, //13: Coin Bas Droit
+  0.0, 0.0, //14: Coin Haut Gauche
   1.0, 0.0  //15: Coin Haut Droit
 ]);
 
 const couleursMurs = new Float32Array([
+  0.0, 0.0, 0.0, 1.0,
+  0.0, 0.0, 0.0, 1.0,
+  0.0, 0.0, 0.0, 1.0,
+  0.0, 0.0, 0.0, 1.0,
   0.0, 0.0, 0.0, 1.0,
   0.0, 0.0, 0.0, 1.0,
   0.0, 0.0, 0.0, 1.0,
@@ -97,7 +116,7 @@ class MurOuvrable extends Objet3D{
   constructor (x, y) {
     let vertex = vertexMur;
 
-    let maillage = new Maillage(maillageMur, 0, 8);
+    let maillage = new Maillage(maillageMur, 0, 10);
 
     let texels = new TexelColl(texelsMur, 0.0, 1.0);
 
