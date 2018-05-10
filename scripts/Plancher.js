@@ -1,13 +1,13 @@
 const vertexPlat = new Float32Array([
-  0.0, 0.0, 0.0, //0: Coin Bas Gauche
-  1.0, 0.0, 0.0, //1: Coin Bas Droit
-  0.0, 0.0, 1.0, //2: Coin Bas Gauche
-  1.0, 0.0, 1.0, //3: Coin Bas Droit
+  0.0, 0.0, 0.0, //0: Coin Distant Gauche
+  1.0, 0.0, 0.0, //1: Coin Distant Droit
+  0.0, 0.0, 1.0, //2: Coin Proche Gauche
+  1.0, 0.0, 1.0, //3: Coin Proche Droit
 ]);
 
-const maillagePlat = new Uint16Array([
-  0, 1, 2,
-  1, 2, 3,
+const maillagePlancher = new Uint16Array([
+  2, 1, 0,
+  1, 2, 3
 ]);
 
 const couleursPlat = new Float32Array([
@@ -27,18 +27,18 @@ class Plancher extends Objet3D{
   constructor (x, y) {
     let vertex = new Float32Array([
        0.0, 0.0,  0.0, //0: Coin Bas Gauche
-      32.0, 0.0,  0.0, //1: Coin Bas Droit
-       0.0, 0.0, 32.0, //2: Coin Bas Gauche
-      32.0, 0.0, 32.0//3: Coin Bas Droit
+      31.0, 0.0,  0.0, //1: Coin Bas Droit
+       0.0, 0.0, 31.0, //2: Coin Bas Gauche
+      31.0, 0.0, 31.0//3: Coin Bas Droit
       ]);
 
-    let maillage = new Maillage(maillagePlat, 0, 2);
+    let maillage = new Maillage(maillagePlancher, 0, 2);
 
     let texels = new TexelColl(new Float32Array([
-      0.0, 32.0, //0: Coin Bas Gauche
-      32.0, 32.0, //1: Coin Bas Droit
+      0.0, 31.0, //0: Coin Bas Gauche
+      31.0, 31.0, //1: Coin Bas Droit
       0.0, 0.0, //2: Coin Haut Gauche
-      32.0, 0.0, //3: Coin Haut Droit
+      31.0, 0.0, //3: Coin Haut Droit
     ]), 4, 1.0);
 
     let transform = creerTransformations();

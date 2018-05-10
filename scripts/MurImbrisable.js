@@ -11,7 +11,7 @@ class MurImbrisable extends Objet3D{
   constructor (x, y) {
     let vertex = vertexMur;
 
-    let maillage = new Maillage(maillageMur, 0, 8);
+    let maillage = new Maillage(maillageMur, 0, 10);
 
     let texels = new TexelColl(texelsMur, 2, 1.0);
 
