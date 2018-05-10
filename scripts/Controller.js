@@ -110,37 +110,72 @@ function moveCamera(intDirection){
     let fltXCamera = getPositionX(camera) + fltXPrime;
     let fltZCamera = getPositionZ(camera) + fltZPrime;
 
-    if(checkCollision(fltXCamera,fltZCamera)){
+    //si il n'y a pas de collision
+    if(checkCollision(fltXCamera,fltZCamera)){ 
         // Déplacer la caméra
         setCibleCameraX(getCibleCameraX(camera) + fltXPrime, camera);
         setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
         setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
         setPositionCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
     }
+    else { // Pour longer les murs s'il y a une collision
+    /*
+        if (fltZCamera <=  Math.floor((fltZCamera)) || fltZCamera >= Math.floor((fltZCamera))) {
+            // On longe les mur ouest ou est 
+            console.log('Z')
+            fltXPrime = 0.06 * ((fltX < 0) ? -1 : 1); 
+            fltZPrime = 0.0;
+        }
+        else if (fltXCamera <=  Math.floor((fltXCamera)) || fltXCamera >= Math.floor((fltXCamera))) {
+            // On longe les mur sud ou nord 
+            console.log('X')
+            fltZPrime = 0.06 * ((fltZ < 0) ? -1 : 1); 
+            fltXPrime = 0.0;
+        }
+
+        // Nouvelles positions de la caméra
+        fltXCamera = getPositionX(camera) + fltXPrime;
+        fltZCamera = getPositionZ(camera) + fltZPrime;
+
+        // Longer le mur s'il ne rencontre pas un nouveau mur
+        if (checkCollision(fltX,fltZ)) {
+            setCibleCameraX(getCibleCameraX(camera) + fltXPrime, camera);
+            setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
+            setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
+            setPositionCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
+        }
+        */
+    }
 }
 
 /**
- * 
  * @param {float} fltX 
  * @param {float} fltZ 
+ * return true si il y a pas de collision, false si il en a une
  */
 function checkCollision(fltX,fltZ){
     binAucuneCollision = true;
     grille = Scene.getInstance().tabDessinables[0].grille;
 
-    intX = Math.floor((fltX));
-    intZ = Math.floor((fltZ));
-    try{
-        if(grille[intZ][intX].constructor.name){
-            binAucuneCollision = false;
-        }
-    }
+    intXPlus = Math.floor((fltX+0.4));
+    intZPlus = Math.floor((fltZ+0.4));
+
+    intXMinus = Math.floor((fltX-0.4));
+    intZMinus = Math.floor((fltZ-0.4));
+
     /**
      * si grille[intZ][intX].constructor.name retourne une erreur c'est qu'il n'y a aucun objet a intZ et intX
-     * et donc c'est vide
+     * et donc c'est marchable
     */
-    catch(e){
-        binAucuneCollision=true;
-    }
+    try{
+        if(grille[intZMinus][intXMinus].constructor.name){
+            binAucuneCollision = false;
+        }
+    }catch(e){}
+    try{
+        if(grille[intZPlus][intXPlus].constructor.name){
+            binAucuneCollision = false;
+        }
+    }catch(e){}
     return binAucuneCollision;
 }
