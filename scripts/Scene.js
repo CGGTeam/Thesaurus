@@ -72,4 +72,11 @@ class Scene {
   addDessinable(obj) {
     this.tabDessinables.push(obj);
   }
+
+  removeDessinable(obj) {
+    var index = this.tabDessinables.indexOf(obj);
+    if (index > -1) {
+      this.tabDessinables.splice(index, 1);
+    }
+  }
 }

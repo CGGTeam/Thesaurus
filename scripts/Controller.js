@@ -14,6 +14,7 @@ var binAerien = false;
 var anciennePosition = [];
 var ancienneRotation = [];
 var ancienneOrientation = [];
+var indicateur;
 /**
  * Si la page est out of focus, mettre tout a false
  */
@@ -270,15 +271,34 @@ function toggleVueAerienne(binAerien){
   let camera = Scene.getInstance().camera;
   if (binAerien) {
     anciennePosition = getPositionsCameraXYZ(camera);
-    ancienneRotation = getAnglesXYZ(camera);
     ancienneOrientation = getOrientationsXYZ(camera);
+    ancienneRotation = getCiblesCameraXYZ(camera);
 
-    setPositionsXYZ([15.50, 40, 15.50],camera);
-    setAnglesXYZ([15.50, 0, 15.50], camera);
+    let p1 = {
+      x: getPositionCameraX(camera),
+      y: getPositionCameraZ(camera)
+    };
+
+    let p2 = {
+      x: getCibleCameraX(camera),
+      y: getCibleCameraZ(camera)
+    };
+
+    let angleDeg = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI + 90;
+
+    setPositionsCameraXYZ([15.50, 40, 15.50],camera);
+    setCiblesCameraXYZ([15.50,0,15.50], camera);
     setOrientationsXYZ([0, 0, -1], camera);
+
+    let transformIndicateur = creerTransformations();
+    setPositionsXYZ(anciennePosition, transformIndicateur);
+    setAngleY(-angleDeg, transformIndicateur);
+    indicateur = new Indicateur(transformIndicateur);
+    Scene.getInstance().addDessinable(indicateur);
   } else {
     setPositionsXYZ(anciennePosition,camera);
-    setAnglesXYZ(ancienneRotation, camera);
+    setCiblesCameraXYZ(ancienneRotation, camera);
     setOrientationsXYZ(ancienneOrientation, camera);
+    Scene.getInstance().removeDessinable(indicateur);
   }
 }
