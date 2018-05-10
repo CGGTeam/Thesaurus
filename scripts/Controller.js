@@ -8,6 +8,7 @@ var binMoveFoward = false;
 var binMoveBackward = false;
 var binClosed = false;
 var fltVitesse = 0.045; //0.045;
+var nbOuvreurs = 4;
 
 /**
  * Si la page est out of focus, mettre tout a false
@@ -42,7 +43,11 @@ document.addEventListener("keydown", function(event) {
     }
     //space (ouvrir un mur)
     else if(event.keyCode == 32){
-        ouvrirMur();
+        if(nbOuvreurs >= 0)
+            ouvrirMur();
+        else{
+            console.log('aucun n\'ouvreur restant');
+        }
     }
 })
 /**
@@ -222,34 +227,10 @@ function ouvrirMur(){
     if(fltZ<=-1 && fltX>=-1 && fltX<=1){
         intZCamera=intZCamera-1;
     }
-    /*
-    //Nord-ouest
-    else if(fltZ>=-1.5 && fltZ<=0 && fltX<=0 && fltX>=-1.5){
-        intZCamera=intZCamera-1;
-        intXCamera=intXCamera-1;
-    }
-    //Nord-est
-    else if(fltZ>=-1.5 && fltZ<=0 && fltX>=0 && fltX<=1.5){
-        intZCamera=intZCamera-1;
-        intXCamera=intXCamera+1;
-    }
-    */
     //sud
     else if(fltZ>=1 && fltX>=-1 && fltX<=1){
         intZCamera=intZCamera+1;
     }
-    /*
-    //sud-ouest
-    else if(fltZ>=0 && fltZ<=1.5 && fltX<=0 && fltX>=-1.5){
-        intZCamera=intZCamera+1;
-        intXCamera=intXCamera-1;
-    }
-    //sud-est
-    else if(fltZ>=0 && fltZ<=1.5 && fltX>=0 && fltX<=1.5){
-        intZCamera=intZCamera+1;
-        intXCamera=intXCamera+1;
-    }
-    */
     //est
     else if(fltZ>=-1 && fltZ<=1 && fltX>=1){
         intXCamera=intXCamera+1;
@@ -258,7 +239,14 @@ function ouvrirMur(){
     else{
         intXCamera=intXCamera-1;
     }
-
-    //enlever l'objet dans la grille
-    Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera] = null;
+    try{
+        //regarde si l'objet est un mur ouvrable
+        if((Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera].constructor.name == "MurOuvrable")){
+            //enlever l'objet dans la grille et enlever 1 ouvreur
+            Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera] = null;
+            nbOuvreurs--;
+        }
+        else
+            console.log('Vous ne pouvez pas ouvrir un' + (Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera].constructor.name))
+    }catch(e){console.log('Vous faites face à aucun objet')}
 }
