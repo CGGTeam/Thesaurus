@@ -6,6 +6,7 @@ var binMoveLeft = false;
 var binMoveRight = false;
 var binMoveFoward = false;
 var binMoveBackward = false;
+var binClosed = false;
 
 /**
  * Si la page est out of focus, mettre tout a false
@@ -117,6 +118,11 @@ function moveCamera(intDirection){
         setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
         setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
         setPositionCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
+
+        //si le joueur sort de l'enclos du début, elle doit se fermer
+        if(binClosed == false){
+            checkExterieurEnclos(fltZCamera)
+        }
     }
     else { // Pour longer les murs s'il y a une collision
     /*
@@ -155,13 +161,14 @@ function moveCamera(intDirection){
  */
 function checkCollision(fltX,fltZ){
     binAucuneCollision = true;
+    let fltPaddingSize = 0.25; //ajout d'un padding pour empecher que la camera puisse voir à travers les murs
     grille = Scene.getInstance().tabDessinables[0].grille;
 
-    intXPlus = Math.floor((fltX+0.4));
-    intZPlus = Math.floor((fltZ+0.4));
+    intXPlus = Math.floor((fltX+fltPaddingSize));
+    intZPlus = Math.floor((fltZ+fltPaddingSize));
 
-    intXMinus = Math.floor((fltX-0.4));
-    intZMinus = Math.floor((fltZ-0.4));
+    intXMinus = Math.floor((fltX-fltPaddingSize));
+    intZMinus = Math.floor((fltZ-fltPaddingSize));
 
     /**
      * si grille[intZ][intX].constructor.name retourne une erreur c'est qu'il n'y a aucun objet a intZ et intX
@@ -178,4 +185,13 @@ function checkCollision(fltX,fltZ){
         }
     }catch(e){}
     return binAucuneCollision;
+}
+function checkExterieurEnclos(fltZ){
+    if(fltZ<=12.5){
+        binClosed = true;;
+
+        let objCtor = tabCodeGrille[2];
+        let fctFactory = objCtor.bind(objCtor, 15, 13);
+        Scene.getInstance().tabDessinables[0].grille[13][15] = new fctFactory();
+    }
 }
