@@ -45,21 +45,18 @@ document.addEventListener("keydown", function(event) {
       else if(event.keyCode === 40){
         binMoveBackward = true;
         event.preventDefault();
-<<<<<<< HEAD
-    }
-    //space (ouvrir un mur)
-    else if(event.keyCode == 32){
+      }
+      //space (ouvrir un mur)
+      else if(event.keyCode == 32){
         if(nbOuvreurs >= 0)
             ouvrirMur();
         else{
             console.log('aucun n\'ouvreur restant');
         }
-=======
       }
       else if(event.keyCode == 32){
         ouvrirMur();
       }
->>>>>>> f120edb797700e8aba291fb486bcd12a9b174777
     }
     if (event.keyCode == 33) {
       binAerien = !binAerien;
