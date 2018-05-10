@@ -48,19 +48,24 @@ document.addEventListener("keydown", function(event) {
         event.preventDefault();
       }
       //space (ouvrir un mur)
-      else if(event.keyCode == 32){
+      else if(event.keyCode === 32){
         if(nbOuvreurs >= 0)
             ouvrirMur();
         else{
             console.log('aucun n\'ouvreur restant');
         }
       }
-      else if(event.keyCode == 32){
+      else if(event.keyCode === 32){
         ouvrirMur();
       }
     }
-    if (event.keyCode == 33) {
+    if (event.keyCode === 33) {
+      binMoveLeft = false;
+      binMoveRight = false;
+      binMoveFoward = false;
+      binMoveBackward = false;
       binAerien = !binAerien;
+      Scene.getInstance().binOrthograpique = binAerien;
       toggleVueAerienne(binAerien);
     }
 });
@@ -232,12 +237,12 @@ function ouvrirMur(){
     camera = Scene.getInstance().camera;
 
     //la direction que la camera fait face
-    var fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
-    var fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
+    let fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
+    let fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
 
     //la position de la camera
-    var intXCamera = Math.floor(getPositionX(camera));
-    var intZCamera = Math.floor(getPositionZ(camera));
+    let intXCamera = Math.floor(getPositionX(camera));
+    let intZCamera = Math.floor(getPositionZ(camera));
 
     //nord
     if(fltZ<=-1 && fltX>=-1 && fltX<=1){

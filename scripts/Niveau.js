@@ -10,6 +10,7 @@ class Niveau extends Dessinable{
   constructor (nomFichierGrille) {
     super();
     this.grille = [];
+    this.tabCasesLibres = [];
     this.chargerGrille(nomFichierGrille);
   }
 
@@ -25,7 +26,7 @@ class Niveau extends Dessinable{
       this.grille.push([]);
       for (let j = 0; j < tabContenu[i].length; j++) {
         let valeur = parseInt(tabContenu[i].charAt(j));
-        if (valeur != 0 && valeur != 3) {
+        if (valeur !== 0 && valeur !== 3) {
           let objCtor = tabCodeGrille[valeur];
           let fctFactory = objCtor.bind(objCtor, j, i);
           this.grille[i][j] = new fctFactory();
