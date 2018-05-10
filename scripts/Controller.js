@@ -7,6 +7,7 @@ var binMoveRight = false;
 var binMoveFoward = false;
 var binMoveBackward = false;
 var binClosed = false;
+var fltVitesse = 0.045; //0.045;
 
 /**
  * Si la page est out of focus, mettre tout a false
@@ -38,6 +39,10 @@ document.addEventListener("keydown", function(event) {
     else if(event.keyCode == 40){
         binMoveBackward = true;
         event.preventDefault();
+    }
+    //space (ouvrir un mur)
+    else if(event.keyCode == 32){
+        ouvrirMur();
     }
 })
 /**
@@ -88,7 +93,7 @@ function rotateCamera(intDirection){
     camera = Scene.getInstance().camera;
     let fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
     let fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
-    let fltAngle = intDirection * Math.PI / 90; // Tourner 2 degrés
+    let fltAngle = intDirection * Math.PI / (fltVitesse * 3500); // Tourner 2 degrés
     let fltXPrime = fltX * Math.cos(fltAngle) - fltZ * Math.sin(fltAngle);
     let fltZPrime = fltX * Math.sin(fltAngle) + fltZ * Math.cos(fltAngle);
     setCibleCameraX(getPositionCameraX(camera) + fltXPrime, camera);
@@ -104,8 +109,8 @@ function moveCamera(intDirection){
     let fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
     let fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
     let fltRayon = Math.sqrt(fltX * fltX + fltZ * fltZ);
-    let fltXPrime = intDirection * 0.075 * Math.cos(Math.acos(fltX / fltRayon));
-    let fltZPrime = intDirection * 0.075 * Math.sin(Math.asin(fltZ / fltRayon));
+    let fltXPrime = intDirection * fltVitesse * Math.cos(Math.acos(fltX / fltRayon));
+    let fltZPrime = intDirection * fltVitesse * Math.sin(Math.asin(fltZ / fltRayon));
 
     // Positions de la caméra
     let fltXCamera = getPositionX(camera) + fltXPrime;
@@ -186,6 +191,10 @@ function checkCollision(fltX,fltZ){
     }catch(e){}
     return binAucuneCollision;
 }
+/**
+ * Regarde si la camera est à l'extérieur de l'enclos et la ferme si elle l'est
+ * @param {float} fltZ 
+ */
 function checkExterieurEnclos(fltZ){
     if(fltZ<=12.5){
         binClosed = true;;
@@ -194,4 +203,62 @@ function checkExterieurEnclos(fltZ){
         let fctFactory = objCtor.bind(objCtor, 15, 13);
         Scene.getInstance().tabDessinables[0].grille[13][15] = new fctFactory();
     }
+}
+/**
+ * ouvre un mur ouvrable dans la direction que le joueur fait fasse
+ */
+function ouvrirMur(){
+    camera = Scene.getInstance().camera;
+
+    //la direction que la camera fait face
+    var fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
+    var fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
+
+    //la position de la camera
+    var intXCamera = Math.floor(getPositionX(camera));
+    var intZCamera = Math.floor(getPositionZ(camera));
+    
+    //nord
+    if(fltZ<=-1 && fltX>=-1 && fltX<=1){
+        intZCamera=intZCamera-1;
+    }
+    /*
+    //Nord-ouest
+    else if(fltZ>=-1.5 && fltZ<=0 && fltX<=0 && fltX>=-1.5){
+        intZCamera=intZCamera-1;
+        intXCamera=intXCamera-1;
+    }
+    //Nord-est
+    else if(fltZ>=-1.5 && fltZ<=0 && fltX>=0 && fltX<=1.5){
+        intZCamera=intZCamera-1;
+        intXCamera=intXCamera+1;
+    }
+    */
+    //sud
+    else if(fltZ>=1 && fltX>=-1 && fltX<=1){
+        intZCamera=intZCamera+1;
+    }
+    /*
+    //sud-ouest
+    else if(fltZ>=0 && fltZ<=1.5 && fltX<=0 && fltX>=-1.5){
+        intZCamera=intZCamera+1;
+        intXCamera=intXCamera-1;
+    }
+    //sud-est
+    else if(fltZ>=0 && fltZ<=1.5 && fltX>=0 && fltX<=1.5){
+        intZCamera=intZCamera+1;
+        intXCamera=intXCamera+1;
+    }
+    */
+    //est
+    else if(fltZ>=-1 && fltZ<=1 && fltX>=1){
+        intXCamera=intXCamera+1;
+    }
+    //ouest
+    else{
+        intXCamera=intXCamera-1;
+    }
+
+    //enlever l'objet dans la grille
+    Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera] = null;
 }
