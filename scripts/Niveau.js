@@ -35,6 +35,7 @@ class Niveau extends Dessinable{
     Scene.getInstance().addDessinable(new Plafond(0,0));
     Scene.getInstance().addDessinable(new Plancher(0,0));
     Scene.getInstance().addDessinable(new PlancherTresor(14,14));
+    Scene.getInstance().addDessinable(new Chest(14,12));
     demarrer();
   }
 
