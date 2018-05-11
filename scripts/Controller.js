@@ -227,14 +227,17 @@ function checkExterieurEnclos(fltZ){
 
         let objCtor = tabCodeGrille[2];
         let fctFactory = objCtor.bind(objCtor, 15, 13);
-        Scene.getInstance().tabDessinables[0].grille[13][15] = new fctFactory();
+        let objCase = new fctFactory();
+        Scene.getInstance().tabDessinables[0].grille[13][15] = objCase;
+
+        tabMursImbrisables.push(objCase);
     }
 }
 /**
  * ouvre un mur ouvrable dans la direction que le joueur fait fasse
  */
 function ouvrirMur(){
-    camera = Scene.getInstance().camera;
+    let camera = Scene.getInstance().camera;
 
     //la direction que la camera fait face
     let fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
@@ -264,8 +267,10 @@ function ouvrirMur(){
         //regarde si l'objet est un mur ouvrable
         if((Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera].constructor.name == "MurOuvrable")){
             //enlever l'objet dans la grille et enlever 1 ouvreur
+            Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera].ouvert = true;
             Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera] = null;
             nbOuvreurs--;
+            Audio.getInstance.playOuvrirMur();
         }
         else
             console.log('Vous ne pouvez pas ouvrir un' + (Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera].constructor.name))
