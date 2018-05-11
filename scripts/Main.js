@@ -1,5 +1,5 @@
 window.onload = () => {
-  chargerImages(['Mur.jpg', 'plancher_or.png', 'mur_imbrisable.jpg', 'plafond.jpg', 'Plancher.jpg', 'bois.jpg']);
+  chargerImages(['Mur.jpg', 'plancherCentre.jpg', 'mur_imbrisable.jpg', 'plafond.jpg', 'Plancher.jpg', 'bois.jpg']);
 };
 
 function initialiserScene(tabImages) {
