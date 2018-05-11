@@ -270,7 +270,7 @@ function ouvrirMur(){
             Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera].ouvert = true;
             Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera] = null;
             nbOuvreurs--;
-            Audio.getInstance.playOuvrirMur();
+            Sounds.getInstance().playOuvrirMur();
         }
         else
             console.log('Vous ne pouvez pas ouvrir un' + (Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera].constructor.name))
