@@ -10,10 +10,10 @@ class PlancherTresor extends Objet3D{
    */
   constructor (x, y) {
     let vertex = new Float32Array([
-      0.0, 0.0001, 0.0, //0: Coin Bas Gauche
-      3.0, 0.0001, 0.0, //1: Coin Bas Droit
-      0.0, 0.0001, 3.0, //2: Coin Bas Gauche
-      3.0, 0.0001, 3.0//3: Coin Bas Droit
+      0.0, 0.001, 0.0, //0: Coin Bas Gauche
+      3.0, 0.001, 0.0, //1: Coin Bas Droit
+      0.0, 0.001, 3.0, //2: Coin Bas Gauche
+      3.0, 0.001, 3.0//3: Coin Bas Droit
     ]);
 
     let maillage = new Maillage(maillagePlancher, 0, 2);
