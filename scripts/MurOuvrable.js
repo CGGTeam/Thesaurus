@@ -46,7 +46,7 @@ const maillageMur = new Maillage(new Uint16Array([
   //Face Haute
   18, 17, 16,
   17, 18, 19
-]), 0, 20);
+]), 0, 10);
 
 const texelsMur = new Float32Array([
   //Face arrière
