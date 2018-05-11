@@ -26,6 +26,9 @@ function creerTextures(objgl, tabImages) {
     // Créer La texture
     let objTexture = objgl.createTexture();
 
+    let ext = objgl.getExtension("EXT_texture_filter_anisotropic");
+    console.log(ext);
+
     // La sélectionner
     objgl.bindTexture(objgl.TEXTURE_2D, objTexture);
 
@@ -34,8 +37,10 @@ function creerTextures(objgl, tabImages) {
       objgl.UNSIGNED_BYTE, tabImages[i]);
 
     // La paramétrer
-    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_MAG_FILTER, objgl.NEAREST);
-    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_MIN_FILTER, objgl.NEAREST);
+    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_MAG_FILTER, objgl.LINEAR);
+    objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_MIN_FILTER, objgl.LINEAR_MIPMAP_LINEAR);
+    objgl.texParameterf(objgl.TEXTURE_2D, ext.TEXTURE_MAX_ANISOTROPY_EXT, 4);
+    objgl.generateMipmap(objgl.TEXTURE_2D);
 
     objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_WRAP_S, objgl.REPEAT);
     objgl.texParameteri(objgl.TEXTURE_2D, objgl.TEXTURE_WRAP_T, objgl.REPEAT);
