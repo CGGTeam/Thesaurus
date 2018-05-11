@@ -44,26 +44,6 @@ class Objet3D extends Dessinable{
   dessiner() {
     let scene = this.scene;
 
-    // Matrice du modèle
-    let matModeleVue = mat4.create();
-    mat4.identity(matModeleVue);
-
-    // Placer la caméra sur la scène
-    mat4.lookAt(getPositionsCameraXYZ(scene.camera),
-      getCiblesCameraXYZ(scene.camera),
-      getOrientationsXYZ(scene.camera),
-      matModeleVue);
-
-    // Appliquer les transformations sur le modèle
-    mat4.translate(matModeleVue, getPositionsXYZ(this.transformations));
-    mat4.scale(matModeleVue, getEchellesXYZ(this.transformations));
-    mat4.rotateX(matModeleVue, getAngleX(this.transformations) * Math.PI / 180);
-    mat4.rotateY(matModeleVue, getAngleY(this.transformations) * Math.PI / 180);
-    mat4.rotateZ(matModeleVue, getAngleZ(this.transformations) * Math.PI / 180);
-
-    // Relier la matrice aux shaders
-    scene.objgl.uniformMatrix4fv(scene.objProgShaders.matModeleVue, false, matModeleVue);
-
     // Relier les vertex aux shaders
     scene.objgl.bindBuffer(scene.objgl.ARRAY_BUFFER, this.vertex);
     scene.objgl.vertexAttribPointer(scene.objProgShaders.posVertex, 3, scene.objgl.FLOAT, false, 0, 0);
@@ -87,7 +67,29 @@ class Objet3D extends Dessinable{
     // Sélectionner le maillage qu'on va utiliser pour les triangles et les droites
     scene.objgl.bindBuffer(scene.objgl.ELEMENT_ARRAY_BUFFER, this.maillage);
 
+    // Matrice du modèle
+    let matModeleVue = mat4.create();
+    mat4.identity(matModeleVue);
+
+    // Placer la caméra sur la scène
+    mat4.lookAt(getPositionsCameraXYZ(scene.camera),
+      getCiblesCameraXYZ(scene.camera),
+      getOrientationsXYZ(scene.camera),
+      matModeleVue);
+
+    // Appliquer les transformations sur le modèle
+    mat4.translate(matModeleVue, getPositionsXYZ(this.transformations));
+    mat4.scale(matModeleVue, getEchellesXYZ(this.transformations));
+    mat4.rotateX(matModeleVue, getAngleX(this.transformations) * Math.PI / 180);
+    mat4.rotateY(matModeleVue, getAngleY(this.transformations) * Math.PI / 180);
+    mat4.rotateZ(matModeleVue, getAngleZ(this.transformations) * Math.PI / 180);
+
+    // Relier la matrice aux shaders
+    scene.objgl.uniformMatrix4fv(scene.objProgShaders.matModeleVue, false, matModeleVue);
+
     // Dessiner les triangles
     scene.objgl.drawElements(scene.objgl.TRIANGLES, this.maillage.nbTriangles * 3, scene.objgl.UNSIGNED_SHORT, 0);
+    // Dessiner les droites à la suite des triangles
+    scene.objgl.drawElements(scene.objgl.LINES, this.maillage.nbDroites * 2, scene.objgl.UNSIGNED_SHORT, this.maillage.intNbTriangles * 2 * 3);
   }
 }

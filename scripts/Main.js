@@ -4,11 +4,10 @@ window.onload = () => {
 
 function initialiserScene(tabImages) {
   let objScene = Scene.getInstance();
+  let sounds = Sounds.getInstance();
   objScene.tabTextures = creerTextures(objScene.objgl, tabImages);
   objScene.initScene3D();
   objScene.addDessinable(new Niveau('Map.txt'));
-  //objScene.addDessinable(new Fleche(14,14));
-  demarrer();
 }
 
 function demarrer() {

@@ -48,19 +48,24 @@ document.addEventListener("keydown", function(event) {
         event.preventDefault();
       }
       //space (ouvrir un mur)
-      else if(event.keyCode == 32){
+      else if(event.keyCode === 32){
         if(nbOuvreurs >= 0)
             ouvrirMur();
         else{
             console.log('aucun n\'ouvreur restant');
         }
       }
-      else if(event.keyCode == 32){
+      else if(event.keyCode === 32){
         ouvrirMur();
       }
     }
-    if (event.keyCode == 33) {
+    if (event.keyCode === 33) {
+      binMoveLeft = false;
+      binMoveRight = false;
+      binMoveFoward = false;
+      binMoveBackward = false;
       binAerien = !binAerien;
+      Scene.getInstance().binOrthograpique = binAerien;
       toggleVueAerienne(binAerien);
     }
 });
@@ -222,22 +227,25 @@ function checkExterieurEnclos(fltZ){
 
         let objCtor = tabCodeGrille[2];
         let fctFactory = objCtor.bind(objCtor, 15, 13);
-        Scene.getInstance().tabDessinables[0].grille[13][15] = new fctFactory();
+        let objCase = new fctFactory();
+        Scene.getInstance().tabDessinables[0].grille[13][15] = objCase;
+
+        tabMursImbrisables.push(objCase);
     }
 }
 /**
  * ouvre un mur ouvrable dans la direction que le joueur fait fasse
  */
 function ouvrirMur(){
-    camera = Scene.getInstance().camera;
+    let camera = Scene.getInstance().camera;
 
     //la direction que la camera fait face
-    var fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
-    var fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
+    let fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
+    let fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
 
     //la position de la camera
-    var intXCamera = Math.floor(getPositionX(camera));
-    var intZCamera = Math.floor(getPositionZ(camera));
+    let intXCamera = Math.floor(getPositionX(camera));
+    let intZCamera = Math.floor(getPositionZ(camera));
 
     //nord
     if(fltZ<=-1 && fltX>=-1 && fltX<=1){
@@ -259,8 +267,10 @@ function ouvrirMur(){
         //regarde si l'objet est un mur ouvrable
         if((Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera].constructor.name == "MurOuvrable")){
             //enlever l'objet dans la grille et enlever 1 ouvreur
+            Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera].ouvert = true;
             Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera] = null;
             nbOuvreurs--;
+            Sounds.getInstance().playOuvrirMur();
         }
         else
             console.log('Vous ne pouvez pas ouvrir un' + (Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera].constructor.name))

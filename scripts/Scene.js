@@ -10,6 +10,7 @@ class Scene {
     this.intCycleAnimation = null;
     this.camera = null;
     this.tabTextures = null;
+    this.binOrthograpique = false;
   }
 
   animer() {
@@ -48,12 +49,21 @@ class Scene {
     objgl.viewport(0, 0, objgl.drawingBufferWidth, objgl.drawingBufferHeight);
 
     // Matrice de projection
-    let matProjection = mat4.create();
-    let fltRapportCanevas = objgl.drawingBufferWidth / objgl.drawingBufferHeight;
-    mat4.perspective(45, fltRapportCanevas, 0.01, 150, matProjection);
+    if (!this.binOrthograpique) {
+      let matProjection = mat4.create();
+      let fltRapportCanevas = objgl.drawingBufferWidth / objgl.drawingBufferHeight;
+      mat4.perspective(45, fltRapportCanevas, 0.01, 150, matProjection);
 
-    // Relier la matrice aux shaders
-    objgl.uniformMatrix4fv(objProgShaders.matProjection, false, matProjection);
+      // Relier la matrice aux shaders
+      objgl.uniformMatrix4fv(objProgShaders.matProjection, false, matProjection);
+    } else {
+      let matProjection = mat4.create();
+      mat4.ortho(-16, 16, -16, 16, 0, 100, matProjection);
+
+      // Relier la matrice aux shaders
+      objgl.uniformMatrix4fv(objProgShaders.matProjection, false, matProjection);
+    }
+
 
     this.tabDessinables.forEach(o => o.dessiner());
   }
