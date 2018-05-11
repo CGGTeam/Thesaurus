@@ -231,12 +231,12 @@ function ouvrirMur(){
     camera = Scene.getInstance().camera;
 
     //la direction que la camera fait face
-    var fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
-    var fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
+    let fltX = getCibleCameraX(camera) - getPositionCameraX(camera);
+    let fltZ = getCibleCameraZ(camera) - getPositionCameraZ(camera);
 
     //la position de la camera
-    var intXCamera = Math.floor(getPositionX(camera));
-    var intZCamera = Math.floor(getPositionZ(camera));
+    let intXCamera = Math.floor(getPositionX(camera));
+    let intZCamera = Math.floor(getPositionZ(camera));
 
     //nord
     if(fltZ<=-1 && fltX>=-1 && fltX<=1){
