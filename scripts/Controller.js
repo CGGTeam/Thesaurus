@@ -49,6 +49,7 @@ document.addEventListener("keydown", function(event) {
       }
       //space (ouvrir un mur)
       else if(event.keyCode === 32){
+        event.preventDefault();
         if(nbOuvreurs >= 0)
             ouvrirMur();
         else{
@@ -60,6 +61,7 @@ document.addEventListener("keydown", function(event) {
       }
     }
     if (event.keyCode === 33) {
+      event.preventDefault();
       binMoveLeft = false;
       binMoveRight = false;
       binMoveFoward = false;

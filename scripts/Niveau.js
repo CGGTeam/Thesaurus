@@ -13,7 +13,7 @@ let wallColorBuffer;
 let wallTexelBuffer;
 let wallMeshBuffer;
 
-class Niveau extends Dessinable{
+class Niveau extends Dessinable {
   constructor (nomFichierGrille) {
     super();
     this.grille = [];
@@ -25,12 +25,6 @@ class Niveau extends Dessinable{
     fetch('https://cggteam.github.io/Thesaurus/' + nomFichierGrille)
       .then(response => response.text()
         .then(contenuFichier => this.traiterGrille(contenuFichier))).catch(e => console.log(e));
-  }
-
-  static ajouterMurOuvrable() {
-  }
-
-  static ajouterMurImbrisable() {
   }
 
   traiterGrille(contenu) {
