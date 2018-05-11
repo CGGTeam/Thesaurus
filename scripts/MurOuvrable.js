@@ -30,7 +30,7 @@ const vertexMur = new Float32Array([
   1.0, 2.0, 1.0  //19: Coin Proche Droit
 ]);
 
-const maillageMur = new Uint16Array([
+const maillageMur = new Maillage(new Uint16Array([
   //Face Avant
   2, 1, 0,
   1, 2, 3,
@@ -46,7 +46,7 @@ const maillageMur = new Uint16Array([
   //Face Haute
   18, 17, 16,
   17, 18, 19
-]);
+]), 0, 20);
 
 const texelsMur = new Float32Array([
   //Face arrière
@@ -80,6 +80,8 @@ const texelsMur = new Float32Array([
   1.0, 0.0  //15: Coin Haut Droit
 ]);
 
+const texCollOuvrable = new TexelColl(texelsMur, 0, 1.0);
+
 const couleursMurs = new Float32Array([
   0.0, 0.0, 0.0, 1.0,
   0.0, 0.0, 0.0, 1.0,
@@ -106,7 +108,7 @@ const couleursMurs = new Float32Array([
 /**
  * @classdesc Objet qui représente une case mur
  */
-class MurOuvrable extends Objet3D{
+class MurOuvrable {
   /**
    * Créer un bloc de mur à la position (x, y) indiquée. Noter que la position y dénote la position y en 2D du mur dans
    * la grille de jeu et non son élévation en 3D.
@@ -114,15 +116,9 @@ class MurOuvrable extends Objet3D{
    * @param y position y  dans la grille de jeu
    */
   constructor (x, y) {
-    let vertex = vertexMur;
+    this.ouvert = false;
 
-    let maillage = new Maillage(maillageMur, 0, 10);
-
-    let texels = new TexelColl(texelsMur, 0.0, 1.0);
-
-    let transform = creerTransformations();
-    setPositionsXYZ([x, 0, y], transform);
-
-    super(vertex, maillage, texels, transform, couleursMurs);
+    this.transform = creerTransformations();
+    setPositionsXYZ([x, 0, y], this.transform);
   }
 }
