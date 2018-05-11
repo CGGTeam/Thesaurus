@@ -10,7 +10,7 @@ class Sounds {
         this.audioTeleport = new Audio('docs/audio/teleport.wav');
         this.audioWin = new Audio('docs/audio/win.wav');
         this.audioTimesUp = new Audio('docs/audio/timesUp.wav');
-        this.audioLevelStart = new Audio('docs/audio/levelStart.wav');
+        this.audioLevelStart = new Audio('docs/audio/levelStart.ogg');
     }
     /**
      * retourne l'instance d'audio
