@@ -1,12 +1,12 @@
 class Chest extends Dessinable{
-        constructor(x,y){
+        constructor(a,b){
                 super();
-                this.chestBas = new ChestBas(x,y);
-                //this.chestHaut = new ChestHaut(x,y);
+                this.chestBas = new ChestBas(a,b);
+                this.chestHaut = new ChestHaut(a,b);
         }
 
         dessiner(){
                 this.chestBas.dessiner();
-                //this.chestHaut.dessiner();
+                this.chestHaut.dessiner();
         }
 }

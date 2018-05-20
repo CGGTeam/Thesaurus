@@ -8,6 +8,7 @@ function initialiserScene(tabImages) {
   objScene.tabTextures = creerTextures(objScene.objgl, tabImages);
   objScene.initScene3D();
   objScene.addDessinable(new Niveau('Map.txt'));
+  
 }
 
 function demarrer() {
