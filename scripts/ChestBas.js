@@ -6,21 +6,21 @@ const vertexChest = new Float32Array([
     0.5, 0.25, 0.0, //3: Coin Haut Droit
   
     //Face avant
-    0.0, 0.0, 0.25, //4: Coin Bas Gauche
-    0.5, 0.0, 0.25, //5: Coin Bas Droit
-    0.0, 0.25, 0.25, //6: Coin Haut Gauche
-    0.5, 0.25, 0.25, //7: Coin Haut Droit
+    0.0, 0.0, 0.5, //4: Coin Bas Gauche
+    0.5, 0.0, 0.5, //5: Coin Bas Droit
+    0.0, 0.25, 0.5, //6: Coin Haut Gauche
+    0.5, 0.25, 0.5, //7: Coin Haut Droit
   
     //Face gauche
-    0.0, 0.0, 0.25, //8: Coin Bas Gauche
+    0.0, 0.0, 0.5, //8: Coin Bas Gauche
     0.0, 0.0, 0.0, //9: Coin Bas Droit
-    0.0, 0.25, 0.25, //10: Coin Haut Droit
+    0.0, 0.25, 0.5, //10: Coin Haut Droit
     0.0, 0.25, 0.0, //11: Coin Haut Gauche
   
     //Face droite
-    0.5, 0.0, 0.25, //12: Coin Bas Gauche
+    0.5, 0.0, 0.5, //12: Coin Bas Gauche
     0.5, 0.0, 0.0, //13: Coin Bas Droit
-    0.5, 0.25, 0.25, //14: Coin Haut Droit
+    0.5, 0.25, 0.5, //14: Coin Haut Droit
     0.5, 0.25, 0.0, //15: Coin Haut Gauche
   ]);
   
@@ -102,8 +102,8 @@ const vertexChest = new Float32Array([
       let texels = new TexelColl(texelsChest, 5, 1.0);
   
       let transform = creerTransformations();
-      setAngleY(Math.PI * 2, transform);
-      setPositionsXYZ([x, 0, y], transform);
+      setAngleY(90, transform);
+      setPositionsXYZ([x-0.25, 0, y+0.5], transform);
 
   
       let couleur = [];

@@ -15,20 +15,20 @@
     constructor (x, y) {
 
         let cylindreTopVertex = [0,0,0,
-                                 0,0,1];
+                                 0,0,0.5];
         let cylindreTopMaillage = [];
         let divisions = 32;
         let theta = (Math.PI/180) * 360 / divisions;
         let a = Math.cos(theta)/4;
         let b = Math.sin(theta)/4;
         cylindreTopVertex.push(a, b, 0);
-        cylindreTopVertex.push(a, b, 1);
+        cylindreTopVertex.push(a, b, 0.5);
 
         for(let i = 2; i <= divisions+2; i++){
           a = Math.cos(theta*i)/4;
           b = Math.sin(theta*i)/4;
           cylindreTopVertex.push(a, b, 0);
-          cylindreTopVertex.push(a, b, 1);
+          cylindreTopVertex.push(a, b, 0.5);
           //if(i < 3){
           cylindreTopMaillage.push(
             0, i, (i-2),
