@@ -23,7 +23,7 @@ class Niveau extends Dessinable {
     this.nomFichierGrille=nomFichierGrille;
     
     //temps du niveau
-    this.temps = 30,
+    this.temps = 60,
     startTimer(this.temps);
   }
 
@@ -205,7 +205,14 @@ class Niveau extends Dessinable {
         }
       }
     }
-    Scene.getInstance().addDessinable(new Plafond(0,0));
+
+    for(let x = 0; x < 30; x++){
+      for(let y = 0; y < 30; y++){
+        if(!this.grille[x][y])
+            this.tabCasesLibres.push({x: y, y: x});
+      }
+    }
+    //Scene.getInstance().addDessinable(new Plafond(0,0));
     Scene.getInstance().addDessinable(new Plancher(0,0));
     Scene.getInstance().addDessinable(new PlancherTresor(14,14));
 
@@ -275,6 +282,9 @@ class Niveau extends Dessinable {
   }
   resetMap(){
     //recharger la grille
+    tabMursOuvrables.length = 0;
+    tabMursImbrisables.length = 0;
+    Scene.getInstance().tabDessinables.length = 1;
     this.reChargerGrille(this.nomFichierGrille);
 
     //reouvrir l'enclot
@@ -319,7 +329,7 @@ class Niveau extends Dessinable {
 
   }
   placerTransporteur(){
-    let intNbTransporteur = Math.floor(Scene.getInstance().intNiveau/2) + 1;
+    let intNbTransporteur = Math.floor(Scene.getInstance().intNiveau/2);
     for(let i = 0; i < intNbTransporteur; i++){
 
     let indexTrans = Math.floor(Math.random()*this.tabCasesLibres.length);
