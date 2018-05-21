@@ -173,32 +173,24 @@ function moveCamera(intDirection){
         }
     }
     else { // Pour longer les murs s'il y a une collision
-    /*
-        if (fltZCamera <=  Math.floor((fltZCamera)) || fltZCamera >= Math.floor((fltZCamera))) {
-            // On longe les mur ouest ou est 
-            console.log('Z')
-            fltXPrime = 0.06 * ((fltX < 0) ? -1 : 1); 
-            fltZPrime = 0.0;
-        }
-        else if (fltXCamera <=  Math.floor((fltXCamera)) || fltXCamera >= Math.floor((fltXCamera))) {
-            // On longe les mur sud ou nord 
-            console.log('X')
-            fltZPrime = 0.06 * ((fltZ < 0) ? -1 : 1); 
-            fltXPrime = 0.0;
-        }
+        //if (fltXCamera <= 1 || fltXCamera >= 1) {
+            // On longe le mur ouest ou est 
+            fltZPrime = (fltVitesse-0.01) * ((fltZ < 0) ? -1 : 1); fltXPrime = 0.0;
+
+            fltXPrime = (fltVitesse-0.01) * ((fltX < 0) ? -1 : 1); fltZPrime = 0.0;
+       // }
 
         // Nouvelles positions de la caméra
         fltXCamera = getPositionX(camera) + fltXPrime;
         fltZCamera = getPositionZ(camera) + fltZPrime;
 
         // Longer le mur s'il ne rencontre pas un nouveau mur
-        if (checkCollision(fltX,fltZ)) {
+        if (checkCollision(fltXCamera,fltZCamera)) {
             setCibleCameraX(getCibleCameraX(camera) + fltXPrime, camera);
             setCibleCameraZ(getCibleCameraZ(camera) + fltZPrime, camera);
             setPositionCameraX(getPositionCameraX(camera) + fltXPrime, camera);
             setPositionCameraZ(getPositionCameraZ(camera) + fltZPrime, camera);
         }
-        */
     }
 }
 
@@ -209,7 +201,7 @@ function moveCamera(intDirection){
  */
 function checkCollision(fltX,fltZ){
     binAucuneCollision = true;
-    let fltPaddingSize = 0.25; //ajout d'un padding pour empecher que la camera puisse voir à travers les murs
+    let fltPaddingSize = 0.2; //ajout d'un padding pour empecher que la camera puisse voir à travers les murs
     grille = Scene.getInstance().tabDessinables[0].grille;
 
     intXPlus = Math.floor((fltX+fltPaddingSize));
@@ -218,18 +210,26 @@ function checkCollision(fltX,fltZ){
     intXMinus = Math.floor((fltX-fltPaddingSize));
     intZMinus = Math.floor((fltZ-fltPaddingSize));
 
-    /**
-     * si grille[intZ][intX].constructor.name retourne une erreur c'est qu'il n'y a aucun objet a intZ et intX
-     * et donc c'est marchable
-    */
     if(grille[intZMinus][intXMinus]!=null){
-        if(grille[intZMinus][intXMinus].constructor.name){
+        if(grille[intZMinus][intXMinus].constructor.name == "MurOuvrable"){
             binAucuneCollision = false;
+        }
+        else if(grille[intZMinus][intXMinus].constructor.name == "MurImbrisable"){
+            binAucuneCollision = false;
+        }
+        else if(grille[intZMinus][intXMinus].constructor.name == "Chest"){
+                Scene.getInstance().tabDessinables[0].levelCompleted();
         }
     }
     if(grille[intZPlus][intXPlus]!=null){
-        if(grille[intZPlus][intXPlus].constructor.name){
+        if(grille[intZPlus][intXPlus].constructor.name == "MurOuvrable"){
             binAucuneCollision = false;
+        }
+        else if(grille[intZPlus][intXPlus].constructor.name == "MurImbrisable"){
+            binAucuneCollision = false;
+        }
+        else if(grille[intZPlus][intXPlus].constructor.name == "Chest"){
+                Scene.getInstance().tabDessinables[0].levelCompleted();
         }
     }
     return binAucuneCollision;

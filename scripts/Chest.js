@@ -18,4 +18,10 @@ class Chest extends Dessinable{
                         Chest.instance = new Chest(a, b);
                 return Chest.instance;
         }
+        static getX(){
+                return this.x;
+        }
+        static getY(){
+                return this.y;
+        }
 } 

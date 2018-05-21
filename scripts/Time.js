@@ -1,10 +1,9 @@
-
+var interval;
+var start = Date.now(),
+    diff,
+    minutes,
+    seconds;
 function startTimer(duration) {
-    var interval;
-    var start = Date.now(),
-        diff,
-        minutes,
-        seconds;
     function timer() {
         diff = duration - (((Date.now() - start) / 1000) | 0);
 
@@ -27,4 +26,9 @@ function startTimer(duration) {
     };
     timer();
     interval = setInterval(timer, 60);
+}
+function resetTimer(duration){
+    start = Date.now() + 1000;
+    clearInterval(interval);
+    startTimer(duration);
 }
