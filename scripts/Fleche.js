@@ -12,21 +12,21 @@ g      f| /
 */
 
     //Face avant
-    0.0, 0.5, 0.5,  //0: a
-    1.0, 0.5, 0.5,  //1: b
-    1.0, 1.0, 0.5,  //2: c
-    1.5,0.25, 0.5,  //3: d
-    1.0,-0.5, 0.5,  //4: e
-    1.0, 0.0, 0.5,  //5: f
-    0.0, 0.0, 0.5,  //6: g
+    0.0, 0.125, 0.125,  //0: a
+    0.25, 0.125, 0.125,  //1: b
+    0.25, 0.25, 0.125,  //2: c
+    0.5,0.0625, 0.125,  //3: d
+    0.25,-0.125, 0.125,  //4: e
+    0.25, 0.0, 0.125,  //5: f
+    0.0, 0.0, 0.125,  //6: g
 
     //Face arrière
-    0.0, 0.5, 0.0,  //7: a
-    1.0, 0.5, 0.0,  //8: b
-    1.0, 1.0, 0.0,  //9: c
-    1.5,0.25, 0.0,  //10: d
-    1.0,-0.5, 0.0,  //11: e
-    1.0, 0.0, 0.0,  //12: f
+    0.0, 0.125, 0.0,  //7: a
+    0.25, 0.125, 0.0,  //8: b
+    0.25, 0.25, 0.0,  //9: c
+    0.5,0.0625, 0.0,  //10: d
+    0.25,-0.125, 0.0,  //11: e
+    0.25, 0.0, 0.0,  //12: f
     0.0, 0.0, 0.0,  //13: g
   
   ]);
@@ -140,7 +140,14 @@ g      f| /
       let texels = new TexelColl(texelsFleche, 5, 0.0);
   
       let transform = creerTransformations();
-      setPositionsXYZ([x, 0, y], transform);
+      let chest = Chest.getInstance();
+      let angle = -Math.atan(Math.abs(chest.y-y)/Math.abs(chest.x-x)) * 180 / Math.PI;
+      console.log(y);
+      console.log(x);
+      console.log(angle);
+      setAngleY(angle,transform);
+
+      setPositionsXYZ([x-0.7, 1.5, y-0.7], transform);
   
       super(vertex, maillage, texels, transform, couleursFleche);
 

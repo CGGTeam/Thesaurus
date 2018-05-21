@@ -46,10 +46,27 @@ class Niveau extends Dessinable {
         }
       }
     }
-    Scene.getInstance().addDessinable(new Plafond(0,0));
+
+    for(let x = 0; x < 30; x++){
+      for(let y = 0; y < 30; y++){
+        if(!this.grille[x][y])
+            this.tabCasesLibres.push({x: y, y: x});
+      }
+    }
+
+    //Scene.getInstance().addDessinable(new Plafond(0,0));
     Scene.getInstance().addDessinable(new Plancher(0,0));
     Scene.getInstance().addDessinable(new PlancherTresor(14,14));
-    Scene.getInstance().addDessinable(new Chest(14.5,11));
+
+    let indexChest = Math.floor(Math.random()*this.tabCasesLibres.length);
+    Scene.getInstance().addDessinable(Chest.getInstance(this.tabCasesLibres[indexChest].x,this.tabCasesLibres[indexChest].y));
+    this.tabCasesLibres.splice(indexChest,1);
+
+    for(let i = 0; i < 10; i++){
+      let indexFleche = Math.floor(Math.random()*this.tabCasesLibres.length);
+      Scene.getInstance().addDessinable(new Fleche(this.tabCasesLibres[indexFleche].x,this.tabCasesLibres[indexFleche].y));
+      this.tabCasesLibres.splice(indexFleche,1);
+    }
 
     let objgl = Scene.getInstance().objgl;
 
