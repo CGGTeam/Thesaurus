@@ -173,12 +173,16 @@ function moveCamera(intDirection){
         }
     }
     else { // Pour longer les murs s'il y a une collision
-        //if (fltXCamera <= 1 || fltXCamera >= 1) {
+        if (fltXCamera <= 1 || fltXCamera >= 1) {
             // On longe le mur ouest ou est 
             fltZPrime = (fltVitesse-0.01) * ((fltZ < 0) ? -1 : 1); fltXPrime = 0.0;
-
             fltXPrime = (fltVitesse-0.01) * ((fltX < 0) ? -1 : 1); fltZPrime = 0.0;
-       // }
+            console.log('ouest')
+        }
+        else { // On longe le mur sud ou nord
+            console.log('nord')
+            fltXPrime = (fltVitesse-0.01) * ((fltX < 0) ? -1 : 1); fltZPrime = 0.0;
+        }
 
         // Nouvelles positions de la caméra
         fltXCamera = getPositionX(camera) + fltXPrime;
