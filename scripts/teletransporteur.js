@@ -16,9 +16,9 @@
 
         let couleurTrans;
         if(transporteur == null) { 
-           couleurTrans = [0.18,0.8,2/3,1.0];
+           couleurTrans = [0.57, 0.215, 0.78, 1.0] ;
         }else{
-            couleurTrans = [0.57, 0.215, 0.78, 1.0];
+            couleurTrans = [0.18,0.8,2/3,1.0];
         }
         let cylindreTopVertex = [0,0,0,
                                  0,0,0.5];
