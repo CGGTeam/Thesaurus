@@ -33,5 +33,15 @@ class Plafond extends Objet3D{
     setPositionsXYZ([x, 0, y], transform);
 
     super(vertex, maillage, texels, transform, couleursPlat);
+    this.binVisible = true;
+  }
+
+  dessiner() {
+    if (this.binVisible)
+      this.maillage.nbTriangles = 2;
+    else
+      this.maillage.nbTriangles = 0;
+
+    super.dessiner();
   }
 }
