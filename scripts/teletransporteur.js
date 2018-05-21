@@ -54,7 +54,8 @@
 
         let vertex = vertexCylindreTr;
     
-        let maillage = new Maillage(maillageCylindreTr, 0, divisions*4);
+        
+        let maillage = new Maillage(maillageCylindreTr, 0, divisions * 4);
     
         let texels = new TexelColl(texelsCylindre, 5, 0.0);
     
@@ -71,5 +72,15 @@
         this.x = x+0.5;
         this.y = y+0.5;
         this.transporteur = transporteur;
+        this.binVisible = true;
+        this.nbTriangles = divisions * 4;
+    }
+
+    dessiner(){
+        if (this.binVisible)
+                this.maillage.nbTriangles = this.nbTriangles;
+        else
+                this.maillage.nbTriangles = 0;
+        super.dessiner();
     }
   }

@@ -61,5 +61,6 @@
         }
 
         super(vertex, maillage, texels, transform, new Float32Array(couleursCylindre));
+        this.nbTriangles = divisions * 4;
     }
   }

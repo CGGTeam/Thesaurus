@@ -151,6 +151,7 @@ g      f| /
   
       super(vertex, maillage, texels, transform, couleursFleche);
 
+      this.binVisible = true;
       let objgl = this.scene.objgl;
       this.couleursLignes = objgl.createBuffer();
       objgl.bindBuffer(objgl.ARRAY_BUFFER, this.couleursLignes);
@@ -158,6 +159,16 @@ g      f| /
     }
 
     dessiner() {
+
+      if (this.binVisible){
+          this.maillage.nbTriangles = 20;
+          this.maillage.nbDroites = 19;
+      }
+      else{
+          this.maillage.nbTriangles = 0;
+          this.maillage.nbDroites = 0;
+      }
+
         let scene = this.scene;
     
         // Matrice du modèle
