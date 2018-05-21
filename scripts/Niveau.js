@@ -247,6 +247,8 @@ class Niveau extends Dessinable {
   //passe au niveau suivant
   levelCompleted(){
     Sounds.getInstance().playTresor();
+
+    resetTimer(this.temps);
     //ajoute les poinnts
     Scene.getInstance().intScore += 10 * Scene.getInstance().time;
     Scene.getInstance().intNiveau++;
@@ -305,6 +307,7 @@ class Niveau extends Dessinable {
     let indexChest = Math.floor(Math.random()*this.tabCasesLibres.length);
     Scene.getInstance().addDessinable(Chest.getInstance(this.tabCasesLibres[indexChest].x,this.tabCasesLibres[indexChest].y));
     this.tabCasesLibres.splice(indexChest,1);
+    this.grille[Chest.getInstance().y][Chest.getInstance().x] = Chest.getInstance();
   }
   placerFleche(){
     let intNbFleche = 20 - (Scene.getInstance().intNiveau*2);
