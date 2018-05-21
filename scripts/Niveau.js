@@ -317,6 +317,7 @@ class Niveau extends Dessinable {
   }
   placerTransporteur(){
     let intNbTransporteur = Math.floor(Scene.getInstance().intNiveau/2);
+    Scene.getInstance().addDessinable(new Teletransporteur(12.5,14));
   }
   placerRecepteur(){
     let intNbRecepteur = Scene.getInstance().intNiveau - 1;
