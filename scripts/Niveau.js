@@ -40,7 +40,7 @@ class Niveau extends Dessinable {
         this.grille.push([]);
         for (let j = 0; j < tabContenu[i].length; j++) {
           let valeur = parseInt(tabContenu[i].charAt(j));
-          if (valeur !== 0 && valeur !== 3) {
+          if (valeur !== 0) {
             let objCtor = tabCodeGrille[valeur];
             let fctFactory = objCtor.bind(objCtor, j, i);
             let objCase = new fctFactory();
@@ -192,7 +192,7 @@ class Niveau extends Dessinable {
         this.grille.push([]);
         for (let j = 0; j < tabContenu[i].length; j++) {
           let valeur = parseInt(tabContenu[i].charAt(j));
-          if (valeur !== 0 && valeur !== 3) {
+          if (valeur !== 0) {
             let objCtor = tabCodeGrille[valeur];
             let fctFactory = objCtor.bind(objCtor, j, i);
             let objCase = new fctFactory();
@@ -323,13 +323,12 @@ class Niveau extends Dessinable {
     for(let i = 0; i < intNbTransporteur; i++){
 
     let indexTrans = Math.floor(Math.random()*this.tabCasesLibres.length);
-    let transporteur = new Teletransporteur(this.tabCasesLibres[indexTrans].x,this.tabCasesLibres[indexTrans].y);
+    let recepteur = new Teletransporteur(this.tabCasesLibres[indexTrans].x,this.tabCasesLibres[indexTrans].y);
     this.tabCasesLibres.splice(indexTrans,1);
 
     indexTrans = Math.floor(Math.random()*this.tabCasesLibres.length);
-    let recepteur = new Teletransporteur(this.tabCasesLibres[indexTrans].x,this.tabCasesLibres[indexTrans].y, transporteur);
+    let transporteur = new Teletransporteur(this.tabCasesLibres[indexTrans].x,this.tabCasesLibres[indexTrans].y, recepteur);
     this.tabCasesLibres.splice(indexTrans,1);
-    transporteur.transporteur = recepteur;
   
     Scene.getInstance().addDessinable(transporteur);
     Scene.getInstance().addDessinable(recepteur);
