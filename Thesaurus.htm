@@ -33,6 +33,7 @@
     <script type="text/javascript" src="scripts/Plafond.js"></script>
     <script type="text/javascript" src="scripts/Niveau.js"></script>
     <script type="text/javascript" src="scripts/Sounds.js"></script>
+    <script type="text/javascript" src="scripts/Time.js"></script>
     <!--------------                       Main                      -------------->
     <script type="text/javascript" src="scripts/Main.js"></script>
 </head>
@@ -51,9 +52,16 @@
 </header>
 
 <main class="sLargeurDiv sCorps">
-    <canvas id="cvThesaurus" width="840" height="720">
-        Votre navigateur ne supporte pas la balise canvas
-    </canvas>
+    <div style="position: relative;">
+        <canvas id="cvThesaurus" width="840" height="720"
+        style="position: absolute; left: 0; top: 0; z-index: 0;">
+            Votre navigateur ne supporte pas la balise canvas
+        </canvas>
+        <canvas id="cvScore" width="840" height="720" 
+        style="position: absolute; left: 0; top: 0; z-index: 1;">
+            Votre navigateur ne supporte pas la balise canvas
+        </canvas>
+    </div>
 </main>
 
 <footer class="sLargeurDiv sPiedDePage">

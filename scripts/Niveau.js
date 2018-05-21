@@ -19,6 +19,12 @@ class Niveau extends Dessinable {
     this.grille = [];
     this.tabCasesLibres = [];
     this.chargerGrille(nomFichierGrille);
+    this.intNbOuvreurs = 4;
+    this.nomFichierGrille=nomFichierGrille;
+    
+    //temps du niveau
+    this.temps = 10,
+    startTimer(this.temps);
   }
 
   chargerGrille(nomFichierGrille) {
@@ -28,6 +34,7 @@ class Niveau extends Dessinable {
   }
 
   traiterGrille(contenu) {
+      this.grille = [];
       let tabContenu = contenu.split(/[\n\r]/);
       for (let i = 0; i < tabContenu.length; i++) {
         this.grille.push([]);
@@ -177,4 +184,140 @@ class Niveau extends Dessinable {
       scene.objgl.drawElements(scene.objgl.LINES, e.ouvert ? 0 : maillageMur.nbDroites * 2, scene.objgl.UNSIGNED_SHORT, maillageMur.nbTriangles * 2 * 3);
     });
   }
+
+  //pour reset le niveau
+  reChargerGrille(nomFichierGrille) {
+    fetch('https://cggteam.github.io/Thesaurus/' + nomFichierGrille)
+      .then(response => response.text()
+        .then(contenuFichier => this.reTraiterGrille(contenuFichier))).catch(e => console.log(e));
+  }
+  reTraiterGrille(contenu) {
+      this.grille = [];
+      let tabContenu = contenu.split(/[\n\r]/);
+      for (let i = 0; i < tabContenu.length; i++) {
+        this.grille.push([]);
+        for (let j = 0; j < tabContenu[i].length; j++) {
+          let valeur = parseInt(tabContenu[i].charAt(j));
+          if (valeur !== 0 && valeur !== 3) {
+            let objCtor = tabCodeGrille[valeur];
+            let fctFactory = objCtor.bind(objCtor, j, i);
+            let objCase = new fctFactory();
+            this.grille[i][j] = objCase;
+
+            if (objCase instanceof MurOuvrable)
+              tabMursOuvrables.push(objCase);
+            else if (objCase instanceof MurImbrisable)
+              tabMursImbrisables.push(objCase);
+        }
+      }
+    }
+    Scene.getInstance().addDessinable(new Plafond(0,0));
+    Scene.getInstance().addDessinable(new Plancher(0,0));
+    Scene.getInstance().addDessinable(new PlancherTresor(14,14));
+
+    let objgl = Scene.getInstance().objgl;
+
+    wallVertBuffer = objgl.createBuffer();
+    objgl.bindBuffer(objgl.ARRAY_BUFFER, wallVertBuffer);
+    objgl.bufferData(objgl.ARRAY_BUFFER, vertexMur, objgl.STATIC_DRAW);
+
+    wallColorBuffer = objgl.createBuffer();
+    objgl.bindBuffer(objgl.ARRAY_BUFFER, wallColorBuffer);
+    objgl.bufferData(objgl.ARRAY_BUFFER, couleursMurs, objgl.STATIC_DRAW);
+
+    wallMeshBuffer = objgl.createBuffer();
+    objgl.bindBuffer(objgl.ELEMENT_ARRAY_BUFFER, wallMeshBuffer);
+    objgl.bufferData(objgl.ELEMENT_ARRAY_BUFFER, maillageMur.maillage, objgl.STATIC_DRAW);
+
+    wallTexelBuffer = objgl.createBuffer();
+    objgl.bindBuffer(objgl.ARRAY_BUFFER, wallTexelBuffer);
+    objgl.bufferData(objgl.ARRAY_BUFFER, texCollImbrisables.texel, objgl.STATIC_DRAW);
+  }
+
+
+  //recommence le niveau courant
+  restartLevel(){
+
+    //reset la map
+    this.resetMap();
+    
+  }
+  //plus de temps restant
+  outOfTime(){
+    //enleve les points
+    Sounds.getInstance().playTimesUp();
+    Scene.getInstance().intScore -= 200;
+    //restart le niveau
+    this.restartLevel();
+  }
+  //passe au niveau suivant
+  levelCompleted(){
+    Sounds.getInstance().playTresor();
+    //ajoute les poinnts
+    Scene.getInstance().intScore += 10 * Scene.getInstance().time;
+    Scene.getInstance().intNiveau++;
+
+    //reset la map
+    this.resetMap();
+    
+  }
+  gameOver(){
+    Sounds.getInstance().playGameOver();
+    Scene.getInstance().arreterAnimation();
+    Scene.getInstance().context2D.font = "100px Comic Sans MS";
+    Scene.getInstance().context2D.fillStyle = "black bold";
+    Scene.getInstance().context2D.textAlign = "center";
+    Scene.getInstance().context2D.fillText("GAME OVER", Scene.getInstance().objCanvasScore.width/2, Scene.getInstance().objCanvasScore.height/2);
+  }
+  gameWon(){
+    Sounds.getInstance().playWin();
+    Scene.getInstance().arreterAnimation();
+    Scene.getInstance().context2D.font = "90px Comic Sans MS";
+    Scene.getInstance().context2D.fillStyle = "black bold";
+    Scene.getInstance().context2D.textAlign = "center";
+    Scene.getInstance().context2D.fillText("Partie Gagnée!!!", Scene.getInstance().objCanvasScore.width/2, Scene.getInstance().objCanvasScore.height/2);
+  }
+  resetMap(){
+    //recharger la grille
+    this.reChargerGrille(this.nomFichierGrille);
+
+    //reouvrir l'enclot
+    Scene.getInstance().tabDessinables[0].grille[13][15] = null;
+    tabMursImbrisables.splice(-1,1)
+
+    //restock les ouvreurs
+    this.restockOuvreurs();
+
+    //remettre la camera au centre
+    Scene.getInstance().repositionnerCamera();
+
+    this.placerTresor();
+    this.placerFleche();
+    this.placerTransporteur();
+    this.placerRecepteur();
+
+    Sounds.getInstance().playLevelStart();
+  }
+  restockOuvreurs(){
+    switch(Scene.getInstance().intNiveau){
+      case 1 : case 2 : this.intNbOuvreurs = 4; ;break;
+      case 3 : case 4 : this.intNbOuvreurs = 3; break;
+      case 5 : case 6 : this.intNbOuvreurs = 2; break;
+      case 7 : case 8 : this.intNbOuvreurs = 1; break;
+      case 9 : case 10 : this.intNbOuvreurs = 0; break;
+    }
+  }
+  placerTresor(){
+    
+  }
+  placerFleche(){
+    let intNbFleche = 20 - (Scene.getInstance().intNiveau*2);
+  }
+  placerTransporteur(){
+    let intNbTransporteur = Math.floor(Scene.getInstance().intNiveau/2);
+  }
+  placerRecepteur(){
+    let intNbRecepteur = Scene.getInstance().intNiveau - 1;
+  }
+
 }
