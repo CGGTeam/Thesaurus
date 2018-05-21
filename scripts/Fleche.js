@@ -141,10 +141,16 @@ g      f| /
   
       let transform = creerTransformations();
       let chest = Chest.getInstance();
-      let angle = -Math.atan(Math.abs(chest.y-y)/Math.abs(chest.x-x)) * 180 / Math.PI;
-      console.log(y);
-      console.log(x);
-      console.log(angle);
+      let p1 = {
+        x: x,
+        y: y
+      };
+      let p2 = {
+        x: chest.x,
+        y: chest.y
+      };
+
+      let angle = -Math.atan2(p2.y - p1.y, p2.x - p1.x) * 360 / (2* Math.PI);
       setAngleY(angle,transform);
 
       setPositionsXYZ([x+0.5, 1.5, y+0.5], transform);

@@ -43,12 +43,8 @@
             i, (i-1), (i+1)
           );//}
         }
-        console.log(cylindreTopVertex);
-        console.log(cylindreTopMaillage);
         const vertexCylindreTr = new Float32Array(cylindreTopVertex);
         const maillageCylindreTr = new Uint16Array(cylindreTopMaillage);
-        //console.log(vertexCylindre);
-        //console.log(maillageCylindre)
 
         let texelsCylindre = new Float32Array((new Array(cylindreTopVertex.length/3*2).fill(0.0)));
 

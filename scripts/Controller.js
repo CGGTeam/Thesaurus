@@ -345,4 +345,6 @@ function toggleVueAerienne(binAerien){
     Scene.getInstance().tabDessinables.filter(x => x instanceof Teletransporteur || x instanceof Fleche || x instanceof Chest)
         .forEach(obj => obj.binVisible = true);
   }
+
+  Scene.getInstance().tabDessinables[0].plafond.binVisible = !binAerien;
 }
