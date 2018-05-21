@@ -3,11 +3,11 @@
   
   
   /**
-   * @classdesc Objet qui représente une case mur
+   * @classdesc Objet qui représente un coffre
    */
   class ChestHaut extends Objet3D{
     /**
-     * Créer un bloc de mur à la position (x, y) indiquée. Noter que la position y dénote la position y en 2D du mur dans
+     * Créer un bloc de mur à la position (x, y) indiquée. Noter que la position y dénote la position y en 2D du chest dans
      * la grille de jeu et non son élévation en 3D.
      * @param x position x dans la grille de jeu
      * @param y position y  dans la grille de jeu
