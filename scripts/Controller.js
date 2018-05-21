@@ -236,6 +236,15 @@ function checkCollision(fltX,fltZ){
                 Scene.getInstance().tabDessinables[0].levelCompleted();
         }
     }
+
+    Scene.getInstance().tabDessinables.filter(obj => obj instanceof Teletransporteur).forEach(transporteur => {
+        if(fltX < transporteur.x + 0.125 && fltX > transporteur.x - 0.125 && fltZ < transporteur.y + 0.125 && fltZ > transporteur.y - 0.125){
+            setPositionsCameraXYZ([transporteur.transporteur.x + (binMoveLeft ? 0.125 : (binMoveRight ? -0.125 : 0)),1,
+                transporteur.transporteur.y + (binMoveFoward ? 0.125 : (binMoveBackward ? -0.125 : 0))], 
+                Scene.getInstance().camera);
+        }
+    });
+
     return binAucuneCollision;
 }
 /**
