@@ -339,4 +339,6 @@ function toggleVueAerienne(binAerien){
     setOrientationsXYZ(ancienneOrientation, camera);
     Scene.getInstance().removeDessinable(indicateur);
   }
+
+  Scene.getInstance().tabDessinables[0].plafond.binVisible = !binAerien;
 }
