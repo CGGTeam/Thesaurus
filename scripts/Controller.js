@@ -8,7 +8,6 @@ var binMoveFoward = false;
 var binMoveBackward = false;
 var binClosed = false;
 var fltVitesse = 0.045; //0.045;
-var nbOuvreurs = 4;
 
 var binAerien = false;
 var anciennePosition = [];
@@ -49,26 +48,32 @@ document.addEventListener("keydown", function(event) {
       }
       //space (ouvrir un mur)
       else if(event.keyCode === 32){
-        event.preventDefault();
-        if(nbOuvreurs >= 0)
-            ouvrirMur();
-        else{
-            console.log('aucun n\'ouvreur restant');
+          //SI IL Y A ASSEZ DE POINTS
+        if(Scene.getInstance().intScore >= 50){
+            //si il lui rest des ouvreurs de murs
+            if(Scene.getInstance().tabDessinables[0].intNbOuvreurs > 0)
+                ouvrirMur();
+            else{
+                console.log('aucun n\'ouvreur restant');
+            }
         }
-      }
+        else
+            console.log('Pas assez de points pour utilisier un ouvreur');
+      }   
       else if(event.keyCode === 32){
         ouvrirMur();
       }
     }
     if (event.keyCode === 33) {
-      event.preventDefault();
-      binMoveLeft = false;
-      binMoveRight = false;
-      binMoveFoward = false;
-      binMoveBackward = false;
-      binAerien = !binAerien;
-      Scene.getInstance().binOrthograpique = binAerien;
-      toggleVueAerienne(binAerien);
+        if(Scene.getInstance().intScore >= 10){
+            binMoveLeft = false;
+            binMoveRight = false;
+            binMoveFoward = false;
+            binMoveBackward = false;
+            binAerien = !binAerien;
+            Scene.getInstance().binOrthograpique = binAerien;
+            toggleVueAerienne(binAerien);
+        }
     }
 });
 /**
@@ -271,8 +276,9 @@ function ouvrirMur(){
             //enlever l'objet dans la grille et enlever 1 ouvreur
             Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera].ouvert = true;
             Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera] = null;
-            nbOuvreurs--;
+            Scene.getInstance().tabDessinables[0].intNbOuvreurs--;
             Sounds.getInstance().playOuvrirMur();
+            Scene.getInstance().intScore -= 50;
         }
         else
             console.log('Vous ne pouvez pas ouvrir un' + (Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera].constructor.name))
