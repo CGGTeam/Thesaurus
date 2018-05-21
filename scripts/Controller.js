@@ -173,16 +173,8 @@ function moveCamera(intDirection){
         }
     }
     else { // Pour longer les murs s'il y a une collision
-        if (fltXCamera <= 1 || fltXCamera >= 1) {
-            // On longe le mur ouest ou est 
-            fltZPrime = (fltVitesse-0.01) * ((fltZ < 0) ? -1 : 1); fltXPrime = 0.0;
-            fltXPrime = (fltVitesse-0.01) * ((fltX < 0) ? -1 : 1); fltZPrime = 0.0;
-            console.log('ouest')
-        }
-        else { // On longe le mur sud ou nord
-            console.log('nord')
-            fltXPrime = (fltVitesse-0.01) * ((fltX < 0) ? -1 : 1); fltZPrime = 0.0;
-        }
+            fltXPrime = intDirection*(fltVitesse-0.01) * ((fltX < 0) ? -1 : 1); fltZPrime = 0.0;
+            fltZPrime = intDirection*(fltVitesse-0.01) * ((fltZ < 0) ? -1 : 1); fltXPrime = 0.0;
 
         // Nouvelles positions de la caméra
         fltXCamera = getPositionX(camera) + fltXPrime;
@@ -216,10 +208,11 @@ function checkCollision(fltX,fltZ){
 
     if(grille[intZMinus][intXMinus]!=null){
         if(grille[intZMinus][intXMinus].constructor.name == "MurOuvrable"){
-            binAucuneCollision = false;
+            if(!grille[intZMinus][intXMinus].ouvert)
+                binAucuneCollision = false;
         }
         else if(grille[intZMinus][intXMinus].constructor.name == "MurImbrisable"){
-            binAucuneCollision = false;
+                binAucuneCollision = false;
         }
         else if(grille[intZMinus][intXMinus].constructor.name == "Chest"){
                 Scene.getInstance().tabDessinables[0].levelCompleted();
@@ -227,10 +220,11 @@ function checkCollision(fltX,fltZ){
     }
     if(grille[intZPlus][intXPlus]!=null){
         if(grille[intZPlus][intXPlus].constructor.name == "MurOuvrable"){
-            binAucuneCollision = false;
+            if(!grille[intZPlus][intXPlus].ouvert)
+                binAucuneCollision = false;
         }
         else if(grille[intZPlus][intXPlus].constructor.name == "MurImbrisable"){
-            binAucuneCollision = false;
+                binAucuneCollision = false;
         }
         else if(grille[intZPlus][intXPlus].constructor.name == "Chest"){
                 Scene.getInstance().tabDessinables[0].levelCompleted();
@@ -298,7 +292,6 @@ function ouvrirMur(){
         if((Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera].constructor.name == "MurOuvrable")){
             //enlever l'objet dans la grille et enlever 1 ouvreur
             Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera].ouvert = true;
-            Scene.getInstance().tabDessinables[0].grille[intZCamera][intXCamera] = null;
             Scene.getInstance().tabDessinables[0].intNbOuvreurs--;
             Sounds.getInstance().playOuvrirMur();
             Scene.getInstance().intScore -= 50;
