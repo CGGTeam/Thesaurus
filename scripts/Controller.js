@@ -14,6 +14,8 @@ var anciennePosition = [];
 var ancienneRotation = [];
 var ancienneOrientation = [];
 var indicateur;
+
+var keys = [];
 /**
  * Si la page est out of focus, mettre tout a false
  */
@@ -64,6 +66,13 @@ document.addEventListener("keydown", function(event) {
         ouvrirMur();
       }
     }
+    //pour tricher
+    else{
+        keys[event.keyCode] = true;
+        if(keys[17] && keys[17] && keys[32]){
+            console.log(' tricher' )
+        }
+    }
     if (event.keyCode === 33) {
         if(Scene.getInstance().intScore >= 10){
             binMoveLeft = false;
@@ -80,6 +89,7 @@ document.addEventListener("keydown", function(event) {
  * Gestion des KEYUP
  */
 document.addEventListener("keyup", function(event) {
+    keys[event.keyCode] = false;
     if (!binAerien) {
       //fleche gauche
       if (event.keyCode === 37){
@@ -212,16 +222,16 @@ function checkCollision(fltX,fltZ){
      * si grille[intZ][intX].constructor.name retourne une erreur c'est qu'il n'y a aucun objet a intZ et intX
      * et donc c'est marchable
     */
-    try{
+    if(grille[intZMinus][intXMinus]!=null){
         if(grille[intZMinus][intXMinus].constructor.name){
             binAucuneCollision = false;
         }
-    }catch(e){}
-    try{
+    }
+    if(grille[intZPlus][intXPlus]!=null){
         if(grille[intZPlus][intXPlus].constructor.name){
             binAucuneCollision = false;
         }
-    }catch(e){}
+    }
     return binAucuneCollision;
 }
 /**

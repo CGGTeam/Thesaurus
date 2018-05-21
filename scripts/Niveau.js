@@ -23,7 +23,7 @@ class Niveau extends Dessinable {
     this.nomFichierGrille=nomFichierGrille;
     
     //temps du niveau
-    this.temps = 10,
+    this.temps = 120,
     startTimer(this.temps);
   }
 
