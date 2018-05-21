@@ -37,12 +37,8 @@
             i, (i-1), (i+1)
           );//}
         }
-        console.log(cylindreTopVertex);
-        console.log(cylindreTopMaillage);
         const vertexCylindre = new Float32Array(cylindreTopVertex);
         const maillageCylindre = new Uint16Array(cylindreTopMaillage);
-        //console.log(vertexCylindre);
-        //console.log(maillageCylindre)
 
         let texelsCylindre = new Float32Array((new Array(cylindreTopVertex.length/3*2).fill(0.0)));
 
@@ -61,5 +57,6 @@
         }
 
         super(vertex, maillage, texels, transform, new Float32Array(couleursCylindre));
+        this.nbTriangles = divisions * 4;
     }
   }

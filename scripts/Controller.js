@@ -70,7 +70,9 @@ document.addEventListener("keydown", function(event) {
     else{
         keys[event.keyCode] = true;
         if(keys[17] && keys[17] && keys[32]){
-            console.log(' tricher' )
+            console.log(' tricher' );
+            Scene.getInstance().tabDessinables.filter(x => x instanceof Teletransporteur || x instanceof Fleche || x instanceof Chest)
+            .forEach(obj => obj.binVisible = !obj.binVisible);
         }
     }
     if (event.keyCode === 33) {
@@ -330,10 +332,16 @@ function toggleVueAerienne(binAerien){
     setAngleY(-angleDeg, transformIndicateur);
     indicateur = new Indicateur(transformIndicateur);
     Scene.getInstance().addDessinable(indicateur);
+    Scene.getInstance().tabDessinables.filter(x => x instanceof Teletransporteur || x instanceof Fleche || x instanceof Chest)
+        .forEach(obj => obj.binVisible = false);
   } else {
     setPositionsXYZ(anciennePosition,camera);
     setCiblesCameraXYZ(ancienneRotation, camera);
     setOrientationsXYZ(ancienneOrientation, camera);
     Scene.getInstance().removeDessinable(indicateur);
+    Scene.getInstance().tabDessinables.filter(x => x instanceof Teletransporteur || x instanceof Fleche || x instanceof Chest)
+        .forEach(obj => obj.binVisible = true);
   }
+
+  Scene.getInstance().tabDessinables[0].plafond.binVisible = !binAerien;
 }

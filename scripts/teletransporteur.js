@@ -43,18 +43,15 @@
             i, (i-1), (i+1)
           );//}
         }
-        console.log(cylindreTopVertex);
-        console.log(cylindreTopMaillage);
         const vertexCylindreTr = new Float32Array(cylindreTopVertex);
         const maillageCylindreTr = new Uint16Array(cylindreTopMaillage);
-        //console.log(vertexCylindre);
-        //console.log(maillageCylindre)
 
         let texelsCylindre = new Float32Array((new Array(cylindreTopVertex.length/3*2).fill(0.0)));
 
         let vertex = vertexCylindreTr;
     
-        let maillage = new Maillage(maillageCylindreTr, 0, divisions*4);
+        
+        let maillage = new Maillage(maillageCylindreTr, 0, divisions * 4);
     
         let texels = new TexelColl(texelsCylindre, 5, 0.0);
     
@@ -71,5 +68,15 @@
         this.x = x+0.5;
         this.y = y+0.5;
         this.transporteur = transporteur;
+        this.binVisible = true;
+        this.nbTriangles = divisions * 4;
+    }
+
+    dessiner(){
+        if (this.binVisible)
+                this.maillage.nbTriangles = this.nbTriangles;
+        else
+                this.maillage.nbTriangles = 0;
+        super.dessiner();
     }
   }

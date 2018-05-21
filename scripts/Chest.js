@@ -5,9 +5,19 @@ class Chest extends Dessinable{
                 this.chestHaut = new ChestHaut(a+0.5,b+0.5);
                 this.x = a;
                 this.y = b;
+                this.binVisible = true;
         }
 
         dessiner(){
+                if (this.binVisible){
+                        this.chestBas.maillage.nbTriangles = 8;
+                        this.chestHaut.maillage.nbTriangles = this.chestHaut.nbTriangles;
+                }
+                else{
+                        this.chestBas.maillage.nbTriangles = 0;
+                        this.chestHaut.maillage.nbTriangles = 0;
+                }
+          
                 this.chestBas.dessiner();
                 this.chestHaut.dessiner();
         }

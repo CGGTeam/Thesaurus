@@ -27,7 +27,6 @@ function creerTextures(objgl, tabImages) {
     let objTexture = objgl.createTexture();
 
     let ext = objgl.getExtension("EXT_texture_filter_anisotropic");
-    console.log(ext);
 
     // La sélectionner
     objgl.bindTexture(objgl.TEXTURE_2D, objTexture);
