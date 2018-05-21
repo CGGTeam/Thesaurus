@@ -53,9 +53,21 @@ class Niveau extends Dessinable {
         }
       }
     }
-    Scene.getInstance().addDessinable(new Plafond(0,0));
+
+    for(let x = 0; x < 30; x++){
+      for(let y = 0; y < 30; y++){
+        if(!this.grille[x][y])
+            this.tabCasesLibres.push({x: y, y: x});
+      }
+    }
+
+    //Scene.getInstance().addDessinable(new Plafond(0,0));
     Scene.getInstance().addDessinable(new Plancher(0,0));
     Scene.getInstance().addDessinable(new PlancherTresor(14,14));
+    this.placerTresor();
+    this.placerFleche();
+    this.placerTransporteur();
+    this.placerRecepteur();
 
     let objgl = Scene.getInstance().objgl;
 
@@ -290,10 +302,18 @@ class Niveau extends Dessinable {
     }
   }
   placerTresor(){
-    
+    let indexChest = Math.floor(Math.random()*this.tabCasesLibres.length);
+    Scene.getInstance().addDessinable(Chest.getInstance(this.tabCasesLibres[indexChest].x,this.tabCasesLibres[indexChest].y));
+    this.tabCasesLibres.splice(indexChest,1);
   }
   placerFleche(){
     let intNbFleche = 20 - (Scene.getInstance().intNiveau*2);
+    for(let i = 0; i < intNbFleche; i++){
+      let indexFleche = Math.floor(Math.random()*this.tabCasesLibres.length);
+      Scene.getInstance().addDessinable(new Fleche(this.tabCasesLibres[indexFleche].x,this.tabCasesLibres[indexFleche].y));
+      this.tabCasesLibres.splice(indexFleche,1);
+    }
+
   }
   placerTransporteur(){
     let intNbTransporteur = Math.floor(Scene.getInstance().intNiveau/2);
