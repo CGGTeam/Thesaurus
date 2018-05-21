@@ -51,7 +51,7 @@ class Niveau extends Dessinable {
               tabMursOuvrables.push(objCase);
             else if (objCase instanceof MurImbrisable)
               tabMursImbrisables.push(objCase);
-        } else
+        } else if(j != 15 && i != 13)
             this.tabCasesLibres.push({x: j, y: i});
       }
     }
