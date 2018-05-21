@@ -12,8 +12,14 @@
      * @param x position x dans la grille de jeu
      * @param y position y  dans la grille de jeu
      */ 
-    constructor (x, y) {
+    constructor (x, y, transporteur=null) {
 
+        let couleurTrans;
+        if(transporteur == null) { 
+           couleurTrans = [0.18,0.8,2/3,1.0];
+        }else{
+            couleurTrans = [0.57, 0.215, 0.78, 1.0];
+        }
         let cylindreTopVertex = [0,0,0,
                                  0,0,0.5];
         let cylindreTopMaillage = [];
@@ -54,13 +60,16 @@
     
         let transform = creerTransformations();
         setAngleX(90, transform);
-        setPositionsXYZ([x, 1.5, y], transform);
+        setPositionsXYZ([x+0.5, 1.5, y+0.5], transform);
 
         let couleursCylindre = [];
         for(let i = 0; i < (divisions + 1) * 2; i++){
-          couleursCylindre.push(0.18,0.8,2/3,1.0);
+            couleursCylindre = couleursCylindre.concat(couleurTrans);
         }
 
         super(vertex, maillage, texels, transform, new Float32Array(couleursCylindre));
+        this.x = x+0.5;
+        this.y = y+0.5;
+        this.transporteur = transporteur;
     }
   }
