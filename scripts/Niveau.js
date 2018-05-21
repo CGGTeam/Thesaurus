@@ -40,7 +40,7 @@ class Niveau extends Dessinable {
         this.grille.push([]);
         for (let j = 0; j < tabContenu[i].length; j++) {
           let valeur = parseInt(tabContenu[i].charAt(j));
-          if (valeur !== 0 && valeur !== 3) {
+          if (valeur !== 0) {
             let objCtor = tabCodeGrille[valeur];
             let fctFactory = objCtor.bind(objCtor, j, i);
             let objCase = new fctFactory();
@@ -192,7 +192,7 @@ class Niveau extends Dessinable {
         this.grille.push([]);
         for (let j = 0; j < tabContenu[i].length; j++) {
           let valeur = parseInt(tabContenu[i].charAt(j));
-          if (valeur !== 0 && valeur !== 3) {
+          if (valeur !== 0) {
             let objCtor = tabCodeGrille[valeur];
             let fctFactory = objCtor.bind(objCtor, j, i);
             let objCase = new fctFactory();
