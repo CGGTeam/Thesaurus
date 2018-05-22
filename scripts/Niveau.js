@@ -24,7 +24,7 @@ class Niveau extends Dessinable {
     this.plafond = null;
     
     //temps du niveau
-    this.temps = 120;
+    this.temps = 60;
     startTimer(this.temps);
   }
 
@@ -60,7 +60,8 @@ class Niveau extends Dessinable {
     Scene.getInstance().addDessinable(this.plafond);
     Scene.getInstance().addDessinable(new Plancher(0,0));
     Scene.getInstance().addDessinable(new PlancherTresor(14,14));
-    this.placerTresor();
+    
+    this.placerTresor()
     this.placerFleche();
     this.placerTransporteur();
     this.placerRecepteur();
@@ -182,28 +183,28 @@ class Niveau extends Dessinable {
         .then(contenuFichier => this.reTraiterGrille(contenuFichier))).catch(e => console.log(e));
   }
   reTraiterGrille(contenu) {
-      this.grille = [];
-      Scene.getInstance().tabDessinables = [];
-      let tabContenu = contenu.split(/[\n\r]/);
-      for (let i = 0; i < tabContenu.length; i++) {
-        this.grille.push([]);
-        for (let j = 0; j < tabContenu[i].length; j++) {
-          let valeur = parseInt(tabContenu[i].charAt(j));
-          if (valeur !== 0) {
-            let objCtor = tabCodeGrille[valeur];
-            let fctFactory = objCtor.bind(objCtor, j, i);
-            let objCase = new fctFactory();
-            this.grille[i][j] = objCase;
+    this.grille = [];
+    let tabContenu = contenu.split(/[\n\r]/);
+    for (let i = 0; i < tabContenu.length; i++) {
+      this.grille.push([]);
+      for (let j = 0; j < tabContenu[i].length; j++) {
+        let valeur = parseInt(tabContenu[i].charAt(j));
+        if (valeur !== 0) {
+          let objCtor = tabCodeGrille[valeur];
+          let fctFactory = objCtor.bind(objCtor, j, i);
+          let objCase = new fctFactory();
+          this.grille[i][j] = objCase;
 
-            if (objCase instanceof MurOuvrable)
-              tabMursOuvrables.push(objCase);
-            else if (objCase instanceof MurImbrisable)
-              tabMursImbrisables.push(objCase);
-        }
-      }
+          if (objCase instanceof MurOuvrable)
+            tabMursOuvrables.push(objCase);
+          else if (objCase instanceof MurImbrisable)
+            tabMursImbrisables.push(objCase);
+      } else if(j != 15 && i != 13)
+          this.tabCasesLibres.push({x: j, y: i});
     }
+  }
 
-    Scene.getInstance().addDessinable(new Plafond(0,0));
+    Scene.getInstance().addDessinable(this.plafond);
     Scene.getInstance().addDessinable(new Plancher(0,0));
     Scene.getInstance().addDessinable(new PlancherTresor(14,14));
 
@@ -231,7 +232,18 @@ class Niveau extends Dessinable {
   restartLevel(){
 
     //reset la map
-    this.resetMap();
+    tabMursOuvrables.length=0;
+    this.reChargerGrille(this.nomFichierGrille);
+
+   //reouvrir l'enclot
+   Scene.getInstance().tabDessinables[0].grille[13][15] = null;
+   tabMursImbrisables.splice(-1,1)
+
+   //restock les ouvreurs
+   this.restockOuvreurs();
+
+   //remettre la camera au centre
+   Scene.getInstance().repositionnerCamera();
     
   }
   //plus de temps restant
@@ -273,6 +285,8 @@ class Niveau extends Dessinable {
   }
   resetMap(){
     //recharger la grille
+    Scene.getInstance().tabDessinables.length=1;
+    tabMursOuvrables.length=0;
     this.reChargerGrille(this.nomFichierGrille);
 
     //reouvrir l'enclot
@@ -303,8 +317,9 @@ class Niveau extends Dessinable {
   }
 
   placerTresor(){
+    Chest.instance=null;
     let indexChest = Math.floor(Math.random()*this.tabCasesLibres.length);
-    Scene.getInstance().addDessinable(Chest.getInstance(29,1));
+    Scene.getInstance().addDessinable(Chest.getInstance(this.tabCasesLibres[indexChest].x,this.tabCasesLibres[indexChest].y));
     this.tabCasesLibres.splice(indexChest,1);
     this.grille[Chest.getInstance().y][Chest.getInstance().x] = Chest.getInstance();
   }
