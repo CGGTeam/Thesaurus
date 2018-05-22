@@ -23,9 +23,8 @@ class Niveau extends Dessinable {
     this.nomFichierGrille=nomFichierGrille;
     this.plafond = null;
     
-    //temps du niveau
-    this.temps = 60;
-    startTimer(this.temps);
+
+    startTimer(temps);
   }
 
   chargerGrille(nomFichierGrille) {
@@ -267,7 +266,7 @@ class Niveau extends Dessinable {
     else{
       Sounds.getInstance().playTresor();
 
-      resetTimer(this.temps);
+      resetTimer(temps);
       //ajoute les poinnts
       Scene.getInstance().intScore += 10 * Scene.getInstance().time;
       Scene.getInstance().intNiveau++;
