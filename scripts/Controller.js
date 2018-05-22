@@ -33,6 +33,7 @@ document.addEventListener("keydown", function(event) {
     if(!musDebutPlayed){
         Sounds.getInstance().playLevelStart ();
         musDebutPlayed = true;
+        startTimer(temps);
     }
 
     //fleche gauche

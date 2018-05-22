@@ -14,7 +14,7 @@ class Scene {
     this.tabTextures = null;
     this.binOrthograpique = false;
     this.intScore = 300;
-    this.intNiveau = 10;
+    this.intNiveau = 1;
     
   }
 
@@ -124,6 +124,11 @@ class Scene {
     this.context2D.fillText("Ouvreurs: " + this.tabDessinables[0].intNbOuvreurs, this.objCanvasScore.width/100 * 65, this.objCanvasScore.height -this.objCanvasScore.height/25 );
 
     //Temps 
+    if(this.time==null){
+    this.time=temps;
+    this.duration=temps;
+    }
+
     let al=this.time/this.duration * 100;
 
     let start=4.72;
