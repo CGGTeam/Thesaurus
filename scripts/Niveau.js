@@ -261,7 +261,7 @@ class Niveau extends Dessinable {
   //passe au niveau suivant
   levelCompleted(){
     if(Scene.getInstance().intNiveau==10){
-      this.gameWon();
+      eval("Scene.getInstance().tabDessinables[0].gameWon()");
     }
     else{
       Sounds.getInstance().playTresor();
