@@ -24,7 +24,7 @@ class Niveau extends Dessinable {
     this.plafond = null;
     
     //temps du niveau
-    this.temps = 60;
+    this.temps = 10;
     startTimer(this.temps);
   }
 
@@ -83,6 +83,7 @@ class Niveau extends Dessinable {
     wallTexelBuffer = objgl.createBuffer();
     objgl.bindBuffer(objgl.ARRAY_BUFFER, wallTexelBuffer);
     objgl.bufferData(objgl.ARRAY_BUFFER, texCollImbrisables.texel, objgl.STATIC_DRAW);
+    
 
     demarrer();
   }
@@ -253,7 +254,8 @@ class Niveau extends Dessinable {
     Scene.getInstance().intScore -= 200;
     //restart le niveau
     this.restartLevel();
-    toggleVueAerienne(true);
+    if(binAerien)
+      toggleVueAerienne(binAerien);
   }
   //passe au niveau suivant
   levelCompleted(){
