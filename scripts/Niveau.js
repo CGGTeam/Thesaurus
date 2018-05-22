@@ -256,15 +256,20 @@ class Niveau extends Dessinable {
   }
   //passe au niveau suivant
   levelCompleted(){
-    Sounds.getInstance().playTresor();
+    if(Scene.getInstance().intNiveau==10){
+      this.gameWon();
+    }
+    else{
+      Sounds.getInstance().playTresor();
 
-    resetTimer(this.temps);
-    //ajoute les poinnts
-    Scene.getInstance().intScore += 10 * Scene.getInstance().time;
-    Scene.getInstance().intNiveau++;
+      resetTimer(this.temps);
+      //ajoute les poinnts
+      Scene.getInstance().intScore += 10 * Scene.getInstance().time;
+      Scene.getInstance().intNiveau++;
 
-    //reset la map
-    this.resetMap();
+      //reset la map
+      this.resetMap();
+    }
     
   }
   gameOver(){
@@ -287,6 +292,7 @@ class Niveau extends Dessinable {
     //recharger la grille
     Scene.getInstance().tabDessinables.length=1;
     tabMursOuvrables.length=0;
+    //this.tabCasesLibres = [];
     this.reChargerGrille(this.nomFichierGrille);
 
     //reouvrir l'enclot
@@ -321,7 +327,6 @@ class Niveau extends Dessinable {
     let indexChest = Math.floor(Math.random()*this.tabCasesLibres.length);
     Scene.getInstance().addDessinable(Chest.getInstance(this.tabCasesLibres[indexChest].x,this.tabCasesLibres[indexChest].y));
     this.tabCasesLibres.splice(indexChest,1);
-    this.grille[Chest.getInstance().y][Chest.getInstance().x] = Chest.getInstance();
   }
   placerFleche(){
     let intNbFleche = 20 - (Scene.getInstance().intNiveau*2);
