@@ -1,3 +1,4 @@
+var musDebutPlayed = false;
 window.onload = () => {
   chargerImages(['Mur.jpg', 'PlancherCentre.jpg', 'mur_imbrisable.jpg', 'plafond.jpg', 'Plancher.png', 'bois.jpg']);
 };

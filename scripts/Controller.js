@@ -29,6 +29,12 @@ window.onblur = function(){
  * gestion des KEYDOWN
  */
 document.addEventListener("keydown", function(event) {
+
+    if(!musDebutPlayed){
+        Sounds.getInstance().playLevelStart ();
+        musDebutPlayed = true;
+    }
+
     //fleche gauche
     if (!binAerien) {
       if (event.keyCode === 37){
@@ -91,6 +97,8 @@ document.addEventListener("keydown", function(event) {
  * Gestion des KEYUP
  */
 document.addEventListener("keyup", function(event) {
+
+
     keys[event.keyCode] = false;
     if (!binAerien) {
       //fleche gauche
