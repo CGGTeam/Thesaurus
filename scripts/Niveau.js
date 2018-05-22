@@ -298,7 +298,6 @@ class Niveau extends Dessinable {
     Scene.getInstance().tabDessinables.length=1;
     tabMursOuvrables.length=0;
     tabMursImbrisables.length=0;
-    //this.tabCasesLibres = [];
     this.reChargerGrille(this.nomFichierGrille);
 
     //reouvrir l'enclot
