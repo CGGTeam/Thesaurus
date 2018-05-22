@@ -216,9 +216,6 @@ function checkCollision(fltX,fltZ){
         else if(grille[intZMinus][intXMinus].constructor.name == "MurImbrisable"){
                 binAucuneCollision = false;
         }
-        else if(grille[intZMinus][intXMinus].constructor.name == "Chest"){
-                Scene.getInstance().tabDessinables[0].levelCompleted();
-        }
     }
     if(grille[intZPlus][intXPlus]!=null){
         if(grille[intZPlus][intXPlus].constructor.name == "MurOuvrable"){
@@ -227,9 +224,6 @@ function checkCollision(fltX,fltZ){
         }
         else if(grille[intZPlus][intXPlus].constructor.name == "MurImbrisable"){
                 binAucuneCollision = false;
-        }
-        else if(grille[intZPlus][intXPlus].constructor.name == "Chest"){
-                Scene.getInstance().tabDessinables[0].levelCompleted();
         }
     }
 
@@ -241,6 +235,12 @@ function checkCollision(fltX,fltZ){
                 Scene.getInstance().camera);
         }
     });
+    Scene.getInstance().tabDessinables.filter(obj => obj instanceof Chest).forEach(chest => {
+        if(fltX < chest.x + 0.125 && fltX > chest.x - 0.125 && fltZ < chest.y + 0.125 && fltZ > chest.y - 0.125){
+            Scene.getInstance().tabDessinables[0].levelCompleted();
+        }
+    });
+    
 
     return binAucuneCollision;
 }

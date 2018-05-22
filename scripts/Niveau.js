@@ -24,11 +24,7 @@ class Niveau extends Dessinable {
     this.plafond = null;
     
     //temps du niveau
-<<<<<<< HEAD
-    this.temps = 60,
-=======
     this.temps = 120;
->>>>>>> 1f8fc927288ee593e3c3a734367f492814680ba1
     startTimer(this.temps);
   }
 
@@ -187,7 +183,6 @@ class Niveau extends Dessinable {
   }
   reTraiterGrille(contenu) {
       this.grille = [];
-      Scene.getInstance().tabDessinables = [];
       let tabContenu = contenu.split(/[\n\r]/);
       for (let i = 0; i < tabContenu.length; i++) {
         this.grille.push([]);
@@ -207,17 +202,7 @@ class Niveau extends Dessinable {
       }
     }
 
-<<<<<<< HEAD
-    for(let x = 0; x < 30; x++){
-      for(let y = 0; y < 30; y++){
-        if(!this.grille[x][y])
-            this.tabCasesLibres.push({x: y, y: x});
-      }
-    }
-    //Scene.getInstance().addDessinable(new Plafond(0,0));
-=======
-    Scene.getInstance().addDessinable(new Plafond(0,0));
->>>>>>> 1f8fc927288ee593e3c3a734367f492814680ba1
+    Scene.getInstance().addDessinable(this.plafond);
     Scene.getInstance().addDessinable(new Plancher(0,0));
     Scene.getInstance().addDessinable(new PlancherTresor(14,14));
 
@@ -287,9 +272,8 @@ class Niveau extends Dessinable {
   }
   resetMap(){
     //recharger la grille
-    tabMursOuvrables.length = 0;
-    tabMursImbrisables.length = 0;
-    Scene.getInstance().tabDessinables.length = 1;
+    Scene.getInstance().tabDessinables.length=1;
+    tabMursOuvrables.length=0;
     this.reChargerGrille(this.nomFichierGrille);
 
     //reouvrir l'enclot
@@ -321,7 +305,7 @@ class Niveau extends Dessinable {
 
   placerTresor(){
     let indexChest = Math.floor(Math.random()*this.tabCasesLibres.length);
-    Scene.getInstance().addDessinable(Chest.getInstance(29,1));
+    Scene.getInstance().addDessinable(Chest.getInstance(this.tabCasesLibres[indexChest].x,this.tabCasesLibres[indexChest].y));
     this.tabCasesLibres.splice(indexChest,1);
     this.grille[Chest.getInstance().y][Chest.getInstance().x] = Chest.getInstance();
   }
@@ -334,7 +318,7 @@ class Niveau extends Dessinable {
     }
   }
   placerTransporteur(){
-    let intNbTransporteur = Math.floor(Scene.getInstance().intNiveau/2);
+    let intNbTransporteur = Math.floor(Scene.getInstance().intNiveau/2) + 1;
     for(let i = 0; i < intNbTransporteur; i++){
 
     let indexTrans = Math.floor(Math.random()*this.tabCasesLibres.length);
