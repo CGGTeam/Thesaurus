@@ -236,10 +236,14 @@ function checkCollision(fltX,fltZ){
     }
 
     Scene.getInstance().tabDessinables.filter(obj => obj instanceof Teletransporteur).forEach(transporteur => {
-        if(fltX < transporteur.x + 0.125 && fltX > transporteur.x - 0.125 && fltZ < transporteur.y + 0.125 && fltZ > transporteur.y - 0.125
-            && transporteur.transporteur != null){
-            setPositionsCameraXYZ([transporteur.transporteur.x + (binMoveLeft ? 0.125 : (binMoveRight ? -0.125 : 0)),1,
-                transporteur.transporteur.y + (binMoveFoward ? 0.125 : (binMoveBackward ? -0.125 : 0))], 
+        if(transporteur.transporteur &&
+            fltX < transporteur.x + 0.125 && fltX > transporteur.x - 0.125 && fltZ < transporteur.y + 0.125 && fltZ > transporteur.y - 0.125){
+                
+                let tTempo = Scene.getInstance().tabDessinables.filter(x => x instanceof Teletransporteur && !x.transporteur);
+                let recepteur = tTempo[Math.floor(Math.random()*tTempo.length)];
+                console.log(recepteur);
+                setPositionsCameraXYZ([recepteur.x + (binMoveLeft ? 0.125 : (binMoveRight ? -0.125 : 0)),1,
+                    recepteur.y + (binMoveFoward ? 0.125 : (binMoveBackward ? -0.125 : 0))], 
                 Scene.getInstance().camera);
                 Sounds.getInstance().playTeleport();
         }

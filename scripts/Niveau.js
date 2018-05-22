@@ -321,19 +321,22 @@ class Niveau extends Dessinable {
     for(let i = 0; i < intNbTransporteur; i++){
 
     let indexTrans = Math.floor(Math.random()*this.tabCasesLibres.length);
-    let recepteur = new Teletransporteur(this.tabCasesLibres[indexTrans].x,this.tabCasesLibres[indexTrans].y);
-    this.tabCasesLibres.splice(indexTrans,1);
-
-    indexTrans = Math.floor(Math.random()*this.tabCasesLibres.length);
-    let transporteur = new Teletransporteur(this.tabCasesLibres[indexTrans].x,this.tabCasesLibres[indexTrans].y, recepteur);
+    let transporteur = new Teletransporteur(this.tabCasesLibres[indexTrans].x,this.tabCasesLibres[indexTrans].y, true);
     this.tabCasesLibres.splice(indexTrans,1);
   
     Scene.getInstance().addDessinable(transporteur);
-    Scene.getInstance().addDessinable(recepteur);
     }
   }
 
   placerRecepteur(){
-    let intNbRecepteur = Scene.getInstance().intNiveau - 1;
+    let intNbRecepteur = Scene.getInstance().intNiveau /*- 1*/;
+    for(let i = 0; i < intNbRecepteur; i++){
+
+      let indexTrans = Math.floor(Math.random()*this.tabCasesLibres.length);
+      let recepteur = new Teletransporteur(this.tabCasesLibres[indexTrans].x,this.tabCasesLibres[indexTrans].y, false);
+      this.tabCasesLibres.splice(indexTrans,1);
+
+      Scene.getInstance().addDessinable(recepteur);
+      }
   }
 }
