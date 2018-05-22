@@ -25,6 +25,7 @@ class Niveau extends Dessinable {
     
     //temps du niveau
     this.temps = 60;
+
     startTimer(temps);
   }
 
@@ -265,11 +266,12 @@ class Niveau extends Dessinable {
       resetTimer(this.temps);
       clearInterval(interval);
       this.gameWon();
+      eval("Scene.getInstance().tabDessinables[0].gameWon()");
     }
     else{
       Sounds.getInstance().playTresor();
 
-      resetTimer(this.temps);
+      resetTimer(temps);
       //ajoute les poinnts
       Scene.getInstance().intScore += 10 * Scene.getInstance().time;
       Scene.getInstance().intNiveau++;
