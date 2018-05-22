@@ -25,7 +25,7 @@ class Niveau extends Dessinable {
     
     //temps du niveau
     this.temps = 60;
-    startTimer(this.temps);
+    startTimer(temps);
   }
 
   chargerGrille(nomFichierGrille) {
@@ -262,6 +262,8 @@ class Niveau extends Dessinable {
   //passe au niveau suivant
   levelCompleted(){
     if(Scene.getInstance().intNiveau==10){
+      resetTimer(this.temps);
+      clearInterval(interval);
       this.gameWon();
     }
     else{

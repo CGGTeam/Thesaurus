@@ -14,7 +14,7 @@ class Scene {
     this.tabTextures = null;
     this.binOrthograpique = false;
     this.intScore = 300;
-    this.intNiveau = 10;
+    this.intNiveau = 1;
     
   }
 
