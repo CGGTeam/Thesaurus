@@ -236,7 +236,7 @@ function checkCollision(fltX,fltZ){
         }
     });
     Scene.getInstance().tabDessinables.filter(obj => obj instanceof Chest).forEach(chest => {
-        if(fltX < chest.x + 0.125 && fltX > chest.x - 0.125 && fltZ < chest.y + 0.125 && fltZ > chest.y - 0.125){
+        if(intXPlus < chest.x + 0.125 && intXPlus > chest.x - 0.125 && intZPlus < chest.y + 0.125 && intZPlus > chest.y - 0.125){
             Scene.getInstance().tabDessinables[0].levelCompleted();
         }
     });
