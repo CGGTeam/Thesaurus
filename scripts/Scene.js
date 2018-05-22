@@ -86,7 +86,10 @@ class Scene {
   mettreAJourAnimation() {
     this.tabDessinables.forEach(o => o.mettreAJourAnimation());
     updatePosCamera();
-    this.dessineUI();
+    if(!binAerien)
+      this.dessineUI();
+    else
+      this.context2D.clearRect(0,0,this.objCanvasScore.width,this.objCanvasScore.height);
   }
 
   static getInstance() {

@@ -253,6 +253,7 @@ class Niveau extends Dessinable {
     Scene.getInstance().intScore -= 200;
     //restart le niveau
     this.restartLevel();
+    toggleVueAerienne(true);
   }
   //passe au niveau suivant
   levelCompleted(){
