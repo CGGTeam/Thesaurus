@@ -337,7 +337,7 @@ class Niveau extends Dessinable {
     }
   }
   placerTransporteur(){
-    let intNbTransporteur = Math.floor(Scene.getInstance().intNiveau/2) + 1;
+    let intNbTransporteur = Math.floor(Scene.getInstance().intNiveau/2);
     for(let i = 0; i < intNbTransporteur; i++){
 
     let indexTrans = Math.floor(Math.random()*this.tabCasesLibres.length);
@@ -349,7 +349,7 @@ class Niveau extends Dessinable {
   }
 
   placerRecepteur(){
-    let intNbRecepteur = Scene.getInstance().intNiveau /*- 1*/;
+    let intNbRecepteur = Scene.getInstance().intNiveau - 1;
     for(let i = 0; i < intNbRecepteur; i++){
 
       let indexTrans = Math.floor(Math.random()*this.tabCasesLibres.length);
