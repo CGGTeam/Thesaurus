@@ -1,6 +1,6 @@
 
 //VARIABLE POUR LE TEMPS D'UN NIVEAU
-var temps = 5;
+var temps = 60;
 
 var musDebutPlayed = false;
 window.onload = () => {

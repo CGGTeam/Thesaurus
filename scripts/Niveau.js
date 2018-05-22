@@ -260,10 +260,6 @@ class Niveau extends Dessinable {
   }
   //passe au niveau suivant
   levelCompleted(){
-    if(Scene.getInstance().intNiveau==10){
-      eval("Scene.getInstance().tabDessinables[0].gameWon()");
-    }
-    else{
       Sounds.getInstance().playTresor();
 
       resetTimer(temps);
@@ -273,7 +269,6 @@ class Niveau extends Dessinable {
 
       //reset la map
       this.resetMap();
-    }
     
   }
   gameOver(){
