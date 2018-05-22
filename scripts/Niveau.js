@@ -83,6 +83,7 @@ class Niveau extends Dessinable {
     wallTexelBuffer = objgl.createBuffer();
     objgl.bindBuffer(objgl.ARRAY_BUFFER, wallTexelBuffer);
     objgl.bufferData(objgl.ARRAY_BUFFER, texCollImbrisables.texel, objgl.STATIC_DRAW);
+    
 
     demarrer();
   }
@@ -232,7 +233,9 @@ class Niveau extends Dessinable {
   restartLevel(){
 
     //reset la map
+    binClosed = false;
     tabMursOuvrables.length=0;
+    tabMursImbrisables.length=0;
     this.reChargerGrille(this.nomFichierGrille);
 
    //reouvrir l'enclot
@@ -253,7 +256,8 @@ class Niveau extends Dessinable {
     Scene.getInstance().intScore -= 200;
     //restart le niveau
     this.restartLevel();
-    toggleVueAerienne(true);
+    if(binAerien)
+      toggleVueAerienne(binAerien);
   }
   //passe au niveau suivant
   levelCompleted(){
@@ -291,8 +295,10 @@ class Niveau extends Dessinable {
   }
   resetMap(){
     //recharger la grille
+    binClosed = false;
     Scene.getInstance().tabDessinables.length=1;
     tabMursOuvrables.length=0;
+    tabMursImbrisables.length=0;
     //this.tabCasesLibres = [];
     this.reChargerGrille(this.nomFichierGrille);
 
