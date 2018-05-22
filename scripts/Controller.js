@@ -255,7 +255,8 @@ function checkCollision(fltX,fltZ){
  */
 function checkExterieurEnclos(fltZ){
     if(fltZ<=12.5){
-        binClosed = true;;
+        console.log('ferme')
+        binClosed = true;
 
         let objCtor = tabCodeGrille[2];
         let fctFactory = objCtor.bind(objCtor, 15, 13);

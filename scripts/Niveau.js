@@ -24,7 +24,7 @@ class Niveau extends Dessinable {
     this.plafond = null;
     
     //temps du niveau
-    this.temps = 10;
+    this.temps = 60;
     startTimer(this.temps);
   }
 
@@ -233,7 +233,9 @@ class Niveau extends Dessinable {
   restartLevel(){
 
     //reset la map
+    binClosed = false;
     tabMursOuvrables.length=0;
+    tabMursImbrisables.length=0;
     this.reChargerGrille(this.nomFichierGrille);
 
    //reouvrir l'enclot
@@ -293,8 +295,10 @@ class Niveau extends Dessinable {
   }
   resetMap(){
     //recharger la grille
+    binClosed = false;
     Scene.getInstance().tabDessinables.length=1;
     tabMursOuvrables.length=0;
+    tabMursImbrisables.length=0;
     //this.tabCasesLibres = [];
     this.reChargerGrille(this.nomFichierGrille);
 
