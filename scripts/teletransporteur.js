@@ -12,10 +12,10 @@
      * @param x position x dans la grille de jeu
      * @param y position y  dans la grille de jeu
      */ 
-    constructor (x, y, transporteur=null) {
+    constructor (x, y, transporteur=false) {
 
         let couleurTrans;
-        if(transporteur == null) { 
+        if(!transporteur) { 
            couleurTrans = [0.57, 0.215, 0.78, 1.0] ;
         }else{
             couleurTrans = [0.18,0.8,2/3,1.0];
